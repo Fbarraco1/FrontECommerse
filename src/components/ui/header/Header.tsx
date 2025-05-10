@@ -1,10 +1,15 @@
 import { useState } from 'react'
 import { FiSearch, FiShoppingCart, FiUser } from 'react-icons/fi'
 import styles from './Header.module.css'
+import { useNavigate } from 'react-router'
 
-// Este componente representa el Header principal del ecommerce
 export const Header = () => {
   const [showCategories, setShowCategories] = useState(false)
+  const navigate = useNavigate() // <--- Inicializá el hook
+
+  const handleCartClick = () => {
+    navigate('/login') // <--- Redirige a la ruta deseada
+  }
 
   return (
     <header className={styles.header}>
@@ -39,8 +44,8 @@ export const Header = () => {
 
       {/* Íconos de acciones */}
       <div className={styles.icons}>
-        <FiShoppingCart size={20} />
-        <FiUser size={20} />
+        <FiShoppingCart  size={20}  />
+        <FiUser size={20} onClick={handleCartClick} style={{ cursor: 'pointer' }} />
       </div>
     </header>
   )

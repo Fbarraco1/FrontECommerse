@@ -1,13 +1,11 @@
+import React from 'react'
+import AppRouter from './AppRouter/AppRouter'
 
-import './App.css'
-
-function App() {
-
-
+const App: React.FC = () => {
   return (
-    <>
-      
-    </>
+    <div className="App">
+      <AppRouter />
+    </div>
   )
 }
 

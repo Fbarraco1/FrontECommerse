@@ -1,0 +1,235 @@
+/* RegisterForm.module.css */
+
+.formBox {
+  background: #dddddd;
+  padding: 35px;
+  border-radius: 18px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #111;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.row {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+/* Cada campo dentro de la fila ocupa un espacio flexible */
+.row > div {
+  flex: 1;
+  min-width: 48%;
+  position: relative;
+}
+
+.input {
+  padding: 12px 18px;
+  border-radius: 25px;
+  border: 2px solid transparent;
+  background: #000000;
+  color: #ffffff;
+  font-size: 0.95rem;
+  outline: none;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.input::placeholder {
+  color: #aaa;
+}
+
+/* Estilos específicos para el input tipo date */
+.input[type="date"] {
+  appearance: none;
+  padding-right: 15px; /* Espacio para el ícono nativo del calendario */
+}
+
+.input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Hace que el ícono del calendario sea blanco */
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+/* Estado visual de los inputs con error usando el sistema de React Hook Form */
+.input:invalid,
+.input[aria-invalid="true"] {
+  border-color: #e74c3c;
+}
+
+/* Mostrar un estilo visual cuando el campo es válido */
+.input:valid:not([aria-invalid="true"]):not(:placeholder-shown) {
+  border-color: #2ecc71;
+}
+
+/* Campo de contraseña con ícono */
+.passwordWrapper {
+  position: relative;
+  flex: 1;
+  min-width: 48%;
+}
+
+.passwordWrapper .input {
+  width: 100%;
+  padding-right: 45px; /* Espacio para el ícono */
+}
+
+.eyeIcon {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  color: #706b6b;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.eyeIcon:hover {
+  color: #ffffff;
+}
+
+/* Mensaje de error */
+.error {
+  color: #e74c3c;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.error::before {
+  content: "⚠️";
+  margin-right: 5px;
+  font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Botón de envío */
+.button {
+  background: #000000;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+  width: 55%;
+  align-self: center;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  background: #0f0f0f;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.button:disabled {
+  background: #555;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Texto de registro */
+.registerText {
+  font-size: 0.85rem;
+  margin-top: 15px;
+  text-align: center;
+  color: #000;
+}
+
+.registerText a {
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.registerText a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos para SweetAlert2 personalizado */
+:global(.swal2-popup) {
+  border-radius: 15px !important;
+  padding: 1.5em !important;
+}
+
+:global(.swal2-title) {
+  color: #111 !important;
+  font-size: 1.5rem !important;
+}
+
+:global(.swal2-html-container) {
+  color: #555 !important;
+}
+
+:global(.swal2-confirm) {
+  background-color: #000 !important;
+  border-radius: 25px !important;
+  padding: 8px 25px !important;
+}
+
+:global(.swal2-confirm:focus) {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 600px) {
+  .row {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .row > div {
+    min-width: 100%;
+  }
+  
+  .formBox {
+    padding: 25px 20px;
+  }
+  
+  .button {
+    width: 80%;
+  }
+}

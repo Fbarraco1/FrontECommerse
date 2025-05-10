@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(to right, #ffffff 50%, #111111 50%);
+}
+
+.left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(243, 241, 241, 0.612)
+}
+
+.logo {
+  width: 80%;
+  max-width: 400px;
+}
+
+.right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #111;
+}
