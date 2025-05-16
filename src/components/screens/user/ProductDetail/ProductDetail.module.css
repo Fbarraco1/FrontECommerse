@@ -1,0 +1,123 @@
+.container {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.galleryColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.thumbnail {
+  width: 70px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.activeThumbnail {
+  border: 2px solid black;
+}
+
+.mainImage {
+  max-width: 400px; /* Limita el ancho máximo del contenedor */
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Evita que se desborde el contenido */
+}
+
+.mainImage img {
+  width: 100%;
+  height: auto;
+  max-height: 400px; /* Limita la altura máxima */
+  object-fit: contain; /* Hace que la imagen se ajuste dentro del espacio sin recortarse */
+  border-radius: 8px;
+}
+
+.details {
+  max-width: 400px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.code {
+  font-size: 14px;
+  color: gray;
+}
+
+.price {
+  font-size: 20px;
+  margin: 1rem 0;
+}
+
+.description {
+  margin-bottom: 1rem;
+}
+
+.section {
+  margin: 1rem 0;
+}
+
+.colors {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.colorButton {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.activeColor {
+  border: 2px solid black;
+}
+
+.sizes {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.sizeButton {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.activeSize {
+  background: black;
+  color: white;
+}
+
+.quantitySection {
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.addToCartButton {
+  padding: 0.75rem 2rem;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
