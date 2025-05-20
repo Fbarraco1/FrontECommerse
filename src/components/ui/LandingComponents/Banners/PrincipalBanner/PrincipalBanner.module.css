@@ -1,0 +1,77 @@
+/* PrincipalBanner.module.css */
+.banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f3f4;
+  padding: 4rem 6rem;
+  border-radius: 1rem;
+  font-family: 'Arial', sans-serif;
+  flex-wrap: wrap;
+}
+
+.texto {
+  max-width: 600px;
+}
+
+.texto h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.texto p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.texto button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 3rem;
+}
+
+.stats {
+  display: flex;
+  gap: 3rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat h3 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.stat p {
+  margin: 0.3rem 0 0;
+  color: #555;
+}
+
+.imagen {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 350px;
+  height: 350px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.imagen img {
+  width: 100%;
+  height: 120%; /* Hacemos la imagen más alta que el contenedor */
+  object-fit: cover;
+  object-position: center 30%; /* Desplazamos la imagen hacia abajo (valores más altos = más abajo) */
+  position: absolute;
+  top: 0;
+}

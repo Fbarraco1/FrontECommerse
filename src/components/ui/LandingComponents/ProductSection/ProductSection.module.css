@@ -1,0 +1,33 @@
+/* ProductSection.module.css */
+.section {
+  text-align: center;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.productsContainer {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap; /* para responsividad */
+  margin-bottom: 2rem;
+}
+
+.verTodo {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.verTodo:hover {
+  border-color: #000;
+}

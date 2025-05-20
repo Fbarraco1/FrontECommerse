@@ -1,0 +1,62 @@
+/* BrandLogos.module.css - Versión alternativa */
+.marcas {
+  background-color: black;
+  padding: 2rem 0;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.carouselTrack {
+  display: flex;
+  align-items: center;
+  width: calc(180px * 9); /* Ancho estimado para 4 logos duplicados con espacio */
+  animation: scroll 25s linear infinite;
+}
+
+.logoItem {
+  flex: 0 0 180px; /* Ancho fijo para cada logo con espacio */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoItem img {
+  max-height: 60px;
+  transition: transform 0.3s ease;
+}
+
+.logoItem img:hover {
+  transform: scale(1.1);
+}
+
+/* Crea un efecto de gradiente en los bordes para suavizar la transición */
+.marcas::before,
+.marcas::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100%;
+  top: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marcas::before {
+  left: 0;
+  background: linear-gradient(to right, black, transparent);
+}
+
+.marcas::after {
+  right: 0;
+  background: linear-gradient(to left, black, transparent);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-180px * 4)); /* Mitad del ancho total */
+  }
+}
