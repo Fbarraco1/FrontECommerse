@@ -1,12 +1,10 @@
-import React from 'react'
-import AppRouter from './AppRouter/AppRouter'
-
-const App: React.FC = () => {
+function App() {
   return (
-    <div className="App">
-      <AppRouter />
+    <div className="text-3xl text-center text-blue-500 bg-yellow-200 p-10">
+      ¡Hola! Tailwind está funcionando 🎉
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
+
