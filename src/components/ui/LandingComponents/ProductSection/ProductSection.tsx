@@ -1,3 +1,4 @@
+import { productStore } from "../../../../store/productStore";
 import { ProductCard } from "../../cards/ProductCard/ProductCard";
 import styles from "./ProductSection.module.css";
 
@@ -8,13 +9,14 @@ interface ProductSectionProps {
 }
 
 export const ProductSection = ({ title, productsCount = 4, onViewAll }: ProductSectionProps) => {
+  const productos = productStore((state) => state.productos); // <-- leés los productos del store
   return (
     <div className={styles.section}>
       <h2 className={styles.title}>{title}</h2>
 
       <div className={styles.productsContainer}>
-        {[...Array(productsCount)].map((_, i) => (
-          <ProductCard key={i} />
+        {productos.slice(0, productsCount).map((producto) => (
+          <ProductCard key={producto.id} producto={producto} />
         ))}
       </div>
 
