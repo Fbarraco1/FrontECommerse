@@ -10,5 +10,13 @@ export interface IProduct {
     id: number;
     nombre: string;
   };
-  imagenes: string[]; // puedes agregar esto luego a tu entidad o hacer una relación aparte
+  imagenes: ImagenProducto[]; // Ahora es un array de objetos
+}
+
+export interface ImagenProducto {
+  id: number;
+  url: string;
+  nombre: string;
+  esPrincipal: boolean;
+  orden: number;
 }

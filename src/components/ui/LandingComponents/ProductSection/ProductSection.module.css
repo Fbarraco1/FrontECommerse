@@ -31,3 +31,7 @@
 .verTodo:hover {
   border-color: #000;
 }
+.linkCard {
+  text-decoration: none;
+  color: inherit;
+}

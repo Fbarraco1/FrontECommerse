@@ -12,13 +12,14 @@ export const getAllProductos = async () => {
     }
 };
 
-export const getProductoPorId = async (id: string | number) => {
-    try {
-        const response = await axios.get<IProduct>(`${API_URL}/${id}`);
-        return response.data;
-    } catch (error) {
-        console.error("Error getting producto por ID:", error);
-    }
+export const getProductoPorId = async (id: string | number): Promise<IProduct | undefined> => {
+  try {
+    const response = await axios.get<IProduct>(`${API_URL}/productos/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error getting producto por ID:", error);
+    return undefined;
+  }
 };
 
 export const postNuevoProducto = async (nuevoProducto: IProduct) => {

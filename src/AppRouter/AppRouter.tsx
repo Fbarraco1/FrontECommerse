@@ -2,8 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LandingUser } from "../components/screens/user/Landing/LandingUser";
 import { LoginPage } from "../components/ui/login/LoginPage";
 import { RegisterPage } from "../components/ui/register/RegisterPage";
-import { ProductDetail } from "../components/ui/productDetail/ProductDetail";
 import CartPage from "../components/screens/user/CartPage/CartPage";
+import ProductDetailPage from "../components/screens/user/ProductDetailPage/ProductDetailPage";
 
 const AppRouter = () => {
   return (
@@ -13,7 +13,7 @@ const AppRouter = () => {
         <Route path="/" element={<LandingUser />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/producto/:id" element={<ProductDetail />} />
+        <Route path="/producto/:id" element={<ProductDetailPage />} />
 
         {/* Nueva ruta para el carrito */}
         <Route path="/cart" element={<CartPage />} />

@@ -1,17 +1,19 @@
 import { IProduct } from '../../../../types/IProduct';
 import styles from './ProductCard.module.css';
-import Camisa from '../../../../assets/Camisa.png'; 
+import Camisa from '../../../../assets/Camisa.png';
 
 interface ProductCardProps {
   producto: IProduct;
 }
 
 export const ProductCard = ({ producto }: ProductCardProps) => {
-  const imagenSrc = producto.imagenes?.[0] || Camisa;
+  const imagenPrincipal = producto.imagenes?.find(img => img.esPrincipal);
+  const imagenSrc = imagenPrincipal?.url || producto.imagenes?.[0]?.url || Camisa;
+
   return (
     <div className={styles.card}>
       <img
-        src={imagenSrc} // usar imagen del producto si existe, o imagen por defecto
+        src={imagenSrc}
         alt={producto.nombre}
         className={styles.image}
       />

@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { productStore } from "../../../../store/productStore";
 import { ProductCard } from "../../cards/ProductCard/ProductCard";
 import styles from "./ProductSection.module.css";
@@ -14,11 +15,14 @@ export const ProductSection = ({ title, productsCount = 4, onViewAll }: ProductS
     <div className={styles.section}>
       <h2 className={styles.title}>{title}</h2>
 
-      <div className={styles.productsContainer}>
-        {productos.slice(0, productsCount).map((producto) => (
-          <ProductCard key={producto.id} producto={producto} />
-        ))}
-      </div>
+   <div className={styles.productsContainer}>
+  {productos.slice(0, productsCount).map((producto) => (
+    <Link key={producto.id} to={`/producto/${producto.id}`} className={styles.linkCard}>
+      <ProductCard producto={producto} />
+    </Link>
+  ))}
+</div>
+
 
       {onViewAll && (
         <button className={styles.verTodo} onClick={onViewAll}>
