@@ -4,6 +4,7 @@ import { LoginPage } from "../components/ui/login/LoginPage";
 import { RegisterPage } from "../components/ui/register/RegisterPage";
 import CartPage from "../components/screens/user/CartPage/CartPage";
 import ProductDetailPage from "../components/screens/user/ProductDetailPage/ProductDetailPage";
+import ProductPage from "../components/screens/user/ProductPage/ProductPage"; 
 
 const AppRouter = () => {
   return (
@@ -17,6 +18,9 @@ const AppRouter = () => {
 
         {/* Nueva ruta para el carrito */}
         <Route path="/cart" element={<CartPage />} />
+
+        {/* Nueva ruta para ver productos con filtros */}
+        <Route path="/productos" element={<ProductPage />} /> 
 
         {/* Rutas protegidas para administrador */}
       </Routes>

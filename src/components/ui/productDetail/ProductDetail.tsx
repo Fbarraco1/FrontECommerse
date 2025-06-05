@@ -44,6 +44,10 @@ export const ProductDetail = () => {
   if (!product) return <p>Producto no encontrado</p>;
 
   const handleAddToCart = () => {
+      if (!selectedSize) {
+    alert("Por favor selecciona un talle antes de agregar al carrito.");
+    return;
+  }
     addItem({
       id: product.id,
       name: product.nombre,
@@ -52,7 +56,7 @@ export const ProductDetail = () => {
       imageUrl: selectedImage,
       size: selectedSize,
       color: product.color, // Se obtiene directamente del producto
-    });
+    }); 
   };
 
   return (
