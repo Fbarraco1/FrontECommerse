@@ -2,14 +2,22 @@ import { useState } from 'react'
 import { FiSearch, FiShoppingCart, FiUser } from 'react-icons/fi'
 import styles from './Header.module.css'
 import { useNavigate } from 'react-router'
+import { useCartStore } from '../../../store/cartStore'
+
 
 export const Header = () => {
   const [showCategories, setShowCategories] = useState(false)
   const navigate = useNavigate() // <--- Inicializá el hook
+const items = useCartStore((state) => state.items);
+const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0);
 
-  const handleCartClick = () => {
+  const handleLoginClick = () => {
     navigate('/login') // <--- Redirige a la ruta deseada
   }
+   const handleCartClick = () => {
+    navigate('/cart') // <--- Redirige a la ruta deseada
+  }
+
 
   return (
     <header className={styles.header}>
@@ -43,10 +51,16 @@ export const Header = () => {
       </div>
 
       {/* Íconos de acciones */}
-      <div className={styles.icons}>
-        <FiShoppingCart  size={20}  />
-        <FiUser size={20} onClick={handleCartClick} style={{ cursor: 'pointer' }} />
-      </div>
+<div className={styles.icons}>
+  <div className={styles.cartIconWrapper}>
+    <FiShoppingCart size={20} onClick={handleCartClick} style={{ cursor: 'pointer' }}  />
+    {totalQuantity > 0 && (
+      <span className={styles.cartBadge}>{totalQuantity}</span>
+    )}
+  </div>
+  <FiUser size={20} onClick={handleLoginClick} style={{ cursor: 'pointer' }} />
+</div>
+
     </header>
   )
 }

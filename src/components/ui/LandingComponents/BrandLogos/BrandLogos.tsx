@@ -1,5 +1,4 @@
 // BrandLogos.tsx - Versión alternativa
-import { useEffect, useRef } from 'react';
 import styles from "./BrandLogos.module.css";
 import Armani from "../../../../assets/Armani.png";
 import TomFord from "../../../../assets/TomFord.jpg";
