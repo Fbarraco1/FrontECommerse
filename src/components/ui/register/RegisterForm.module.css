@@ -214,21 +214,60 @@
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Media query para pantallas pequeñas */
+/* Tablet: max-width 1024px */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .formBox {
+    padding: 45px;
+    max-width: 500px;
+  }
+  .title {
+    font-size: 1.7rem;
+    margin-bottom: 30px;
+  }
+  .button {
+    width: 45%;
+    font-size: 1.05rem;
+    padding: 14px 28px;
+  }
+  .row > div,
+  .passwordWrapper {
+    min-width: 46%;
+  }
+}
+
+/* Desktop: min-width 1025px */
+@media (min-width: 1025px) {
+  .formBox {
+    padding: 60px 60px 50px 60px;
+    max-width: 420px;
+  }
+  .title {
+    font-size: 2rem;
+    margin-bottom: 35px;
+  }
+  .button {
+    width: 40%;
+    font-size: 1.1rem;
+    padding: 16px 36px;
+  }
+  .row > div,
+  .passwordWrapper {
+    min-width: 44%;
+  }
+}
+
+/* Mobile: max-width 600px */
 @media (max-width: 600px) {
   .row {
     flex-direction: column;
     gap: 12px;
   }
-  
   .row > div {
     min-width: 100%;
   }
-  
   .formBox {
     padding: 25px 20px;
   }
-  
   .button {
     width: 80%;
   }

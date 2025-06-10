@@ -1,19 +1,21 @@
+/* Mobile First - Base styles for mobile */
 .productPage {
-  padding: 2rem;
+  padding: 1rem;
   background-color: #f9f9f9;
   font-family: Arial, sans-serif;
 }
 
 .productPage h1 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
   color: #333;
+  text-align: center;
 }
 
 .productList {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
 }
 
 .productCard {
@@ -23,6 +25,7 @@
   padding: 1rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s ease-in-out;
+  width: 100%;
 }
 
 .productCard:hover {
@@ -31,11 +34,64 @@
 }
 
 .productCard h2 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin-bottom: 0.5rem;
+  color: #333;
 }
 
 .productCard p {
   margin: 0.3rem 0;
   color: #555;
+  font-size: 0.9rem;
+}
+
+/* Tablet styles */
+@media (min-width: 768px) {
+  .productPage {
+    padding: 1.5rem;
+  }
+  
+  .productPage h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    text-align: left;
+  }
+  
+  .productList {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.2rem;
+  }
+  
+  .productCard h2 {
+    font-size: 1.15rem;
+  }
+  
+  .productCard p {
+    font-size: 0.95rem;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1024px) {
+  .productPage {
+    padding: 2rem;
+  }
+  
+  .productPage h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .productList {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .productCard h2 {
+    font-size: 1.2rem;
+  }
+  
+  .productCard p {
+    font-size: 1rem;
+  }
 }

@@ -1,21 +1,21 @@
 .novedades {
-  padding: 3rem 1rem;
+  padding: 2rem 0.5rem;
   background-color: #fff;
   text-align: center;
 }
 
 .title {
-  font-size: 2rem;
-  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
   font-weight: 700;
   color: #222;
 }
 
 .productsContainer {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  margin-bottom: 2.5rem;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
   justify-items: center;
 }
 
@@ -23,44 +23,63 @@
 .verTodo {
   background-color: #222;
   color: #fff;
-  padding: 0.75rem 2rem;
-  font-size: 1rem;
+  padding: 1rem;
+  font-size: 1.1rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%;
 }
 
 .verTodo:hover {
   background-color: #555;
 }
 
-/* Responsive */
-
-/* Tablets */
-@media (max-width: 1024px) {
-  .productsContainer {
-    grid-template-columns: repeat(2, 1fr);
+/* Tablet: max-width 1024px */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .novedades {
+    padding: 2.5rem 1rem;
   }
 
   .title {
     font-size: 1.8rem;
+    margin-bottom: 2rem;
   }
-}
 
-/* Mobile */
-@media (max-width: 600px) {
   .productsContainer {
-    grid-template-columns: 1fr;
-  }
-
-  .title {
-    font-size: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.7rem;
+    margin-bottom: 2.2rem;
   }
 
   .verTodo {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.1rem;
+    width: auto;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+/* Desktop: min-width 1025px */
+@media (min-width: 1025px) {
+  .novedades {
+    padding: 3rem 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .productsContainer {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .verTodo {
+    width: auto;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
   }
 }

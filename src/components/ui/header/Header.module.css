@@ -1,129 +1,261 @@
-/* Header.module.css */
-
+/* Base - Mobile first */
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 5%;
-    background-color: #ffffff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    height: 80px;
-  }
-  
-  .logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #000;
-    text-decoration: none;
-  }
-  
-  .nav {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-  }
-  
-  .navItem {
-    font-weight: 500;
-    color: #333;
-    text-decoration: none;
-    cursor: pointer;
-    position: relative;
-    transition: color 0.2s;
-  }
-  
-  .navItem:hover {
-    color: #555;
-  }
-  
-  .dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #fff;
-    border: 1px solid #eaeaea;
-    border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 0.5rem 0;
-    min-width: 180px;
-    z-index: 100;
-    margin-top: 0.5rem;
-  }
-  
-  .dropdown a {
-    display: block;
-    padding: 0.5rem 1rem;
-    color: #333;
-    text-decoration: none;
-    transition: background-color 0.2s;
-  }
-  
-  .dropdown a:hover {
-    background-color: #f5f5f5;
-  }
-  
-  .searchContainer {
-    display: flex;
-    align-items: center;
-    background-color: #f7f7f7;
-    border-radius: 9999px;
-    padding: 0.5rem 1rem;
-    width: 100%;
-    max-width: 400px;
-    transition: background-color 0.2s;
-  }
-  
-  .searchContainer:focus-within {
-    background-color: #f0f0f0;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
-  }
-  
-  .searchIcon {
-    color: #9ca3af;
-    margin-right: 0.5rem;
-  }
-  
-  .searchInput {
-    border: none;
-    background-color: transparent;
-    width: 100%;
-    outline: none;
-    font-size: 0.95rem;
-    color: #333;
-  }
-  
-  .searchInput::placeholder {
-    color: #9ca3af;
-  }
-  
-  .icons {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-  }
-  
-  .icons svg {
-    color: #333;
-    cursor: pointer;
-    transition: color 0.2s;
-  }
-  
-  .icons svg:hover {
-    color: #000;
-  }
-  .cartIconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1rem; /* menos padding horizontal para móvil */
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  height: 60px; /* altura un poco menor para móviles */
+}
+
+.logo {
+  font-size: 1.25rem; /* un poco más pequeño */
+  font-weight: 700;
+  color: #000;
+  text-decoration: none;
+  flex-shrink: 0; /* que no reduzca tamaño */
+}
+
+.nav {
+  display: none; /* ocultamos menú en móvil (ideal para menú hamburguesa) */
+  gap: 1.5rem;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+
+.navItem {
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s;
+  font-size: 0.9rem;
+}
+
+.navItem:hover {
+  color: #555;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #eaeaea;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0;
+  min-width: 160px; /* un poco más pequeño */
+  z-index: 100;
+  margin-top: 0.5rem;
+}
+
+.dropdown a {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  font-size: 0.9rem;
+}
+
+.dropdown a:hover {
+  background-color: #f5f5f5;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  background-color: #f7f7f7;
+  border-radius: 9999px;
+  padding: 0.4rem 0.8rem;
+  width: 100%;
+  max-width: 250px;
+  transition: background-color 0.2s;
+  margin-left: 1rem;
+}
+
+.searchContainer:focus-within {
+  background-color: #f0f0f0;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+}
+
+.searchIcon {
+  color: #9ca3af;
+  margin-right: 0.4rem;
+  font-size: 1rem;
+}
+
+.searchInput {
+  border: none;
+  background-color: transparent;
+  width: 100%;
+  outline: none;
+  font-size: 0.85rem;
+  color: #333;
+}
+
+.searchInput::placeholder {
+  color: #9ca3af;
+}
+
+.icons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-left: 1rem;
+}
+
+.icons svg {
+  color: #333;
+  cursor: pointer;
+  transition: color 0.2s;
+  font-size: 1.2rem;
+}
+
+.icons svg:hover {
+  color: #000;
+}
+
+.cartIconWrapper {
   position: relative;
   display: inline-block;
 }
 
 .cartBadge {
   position: absolute;
-  top: -6px;
-  right: -8px;
+  top: -5px;
+  right: -6px;
   background-color: rgb(65, 63, 63);
   color: white;
   border-radius: 50%;
-  padding: 2px 6px;
-  font-size: 12px;
+  padding: 2px 5px;
+  font-size: 10px;
   font-weight: bold;
+}
+
+/* Tablet - pantalla >= 768px */
+@media (min-width: 768px) {
+  .header {
+    padding: 1rem 5%;
+    height: 70px;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .nav {
+    display: flex; /* mostramos menú */
+    gap: 2rem;
+    justify-content: flex-end;
+  }
+
+  .navItem {
+    font-size: 1rem;
+  }
+
+  .dropdown {
+    min-width: 180px;
+  }
+
+  .dropdown a {
+    font-size: 1rem;
+  }
+
+  .searchContainer {
+    max-width: 350px;
+    padding: 0.5rem 1rem;
+  }
+
+  .searchInput {
+    font-size: 0.95rem;
+  }
+
+  .icons svg {
+    font-size: 1.4rem;
+  }
+}
+
+/* Desktop - pantalla >= 1024px */
+@media (min-width: 1024px) {
+  .header {
+    height: 80px;
+  }
+
+  .logo {
+    font-size: 1.75rem;
+  }
+
+  .navItem {
+    font-size: 1.1rem;
+  }
+
+  .searchContainer {
+    max-width: 400px;
+  }
+
+  .icons svg {
+    font-size: 1.6rem;
+  }
+}
+
+/* Botón hamburguesa - visible solo en móvil */
+.hamburger {
+  display: block;
+  width: 24px;
+  height: 18px;
+  position: relative;
+  cursor: pointer;
+  z-index: 150;
+  flex-shrink: 0;
+}
+
+.hamburger span {
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background: #333;
+  border-radius: 2px;
+  transition: 0.3s ease;
+}
+
+.hamburger span:nth-child(1) {
+  top: 0;
+}
+
+.hamburger span:nth-child(2) {
+  top: 7.5px;
+}
+
+.hamburger span:nth-child(3) {
+  top: 15px;
+}
+
+/* Ocultar hamburguesa en tablet y desktop */
+@media (min-width: 768px) {
+  .hamburger {
+    display: none;
+  }
+}
+
+/* Mostrar menú nav cuando está abierto en móvil */
+.nav.open {
+  display: flex !important; /* sobrescribimos el display:none */
+  flex-direction: column;
+  position: absolute;
+  top: 60px; /* justo debajo del header en móvil */
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.nav.open .navItem {
+  margin-bottom: 1rem;
 }

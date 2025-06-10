@@ -1,46 +1,50 @@
-/* CategoriesBanner.module.css */
+/* Mobile First - Base styles for mobile */
 .wrapper {
   background-color: #f2f2f2;
-  padding: 2rem;
+  padding: 1.5rem 1rem;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80%;
+  width: 100%;
+  max-width: 100%;
   justify-content: center;
   margin: 0 auto;
 }
 
 .title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto auto;
-  gap: 1rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
   width: 100%;
-  max-width: 850px;
+  padding: 0 0.5rem;
+  max-width: 100%;
 }
 
-/* Selecciona el tercer card (índice 2) y lo centra */
+/* En móvil, todas las cards tienen el mismo comportamiento */
 .grid .card:nth-child(3) {
-  grid-column: 1 / span 2; /* Ocupa ambas columnas */
-  justify-self: center; /* Centra horizontalmente */
+  grid-column: auto;
+  justify-self: center;
 }
 
 .card {
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  width: 400px;
-  height: 240px;
+  width: 100%;
+  max-width: 280px;
+  height: 180px;
   cursor: pointer;
   background-color: white;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
 }
 
 .card img {
@@ -51,11 +55,100 @@
 
 .label {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 8px;
+  left: 8px;
   font-weight: 600;
   color: #000;
-  background: rgba(255, 255, 255, 0.6);
-  padding: 0.2rem 0.6rem;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.3rem 0.7rem;
   border-radius: 8px;
+  font-size: 0.85rem;
+  text-shadow: none;
+}
+
+/* Tablet styles */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .wrapper {
+    padding: 1.8rem;
+    width: 95%;
+    max-width: 700px;
+  }
+
+  .title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    max-width: 600px;
+    width: 100%;
+    padding: 0;
+  }
+
+  /* El tercer card ocupa ambas columnas pero NO se pasa del grid */
+  .grid .card:nth-child(3) {
+    grid-column: 1 / span 2;
+    justify-self: center;
+    width: 100%;
+    max-width: 260px; /* Igual que las otras cards */
+  }
+
+  .card {
+    width: 100%;
+    max-width: 260px;
+    height: 180px;
+    margin: 0 auto;
+  }
+
+  .label {
+    top: 10px;
+    left: 10px;
+    padding: 0.25rem 0.65rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1024px) {
+  .wrapper {
+    padding: 2rem;
+    width: 80%;
+    max-width: 1100px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    max-width: 850px;
+    width: 100%;
+    padding: 0;
+  }
+
+  /* Desktop: tercer card ocupa ambas columnas */
+  .grid .card:nth-child(3) {
+    grid-column: 1 / span 2;
+    justify-self: center;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 400px;
+    height: 240px;
+    margin: 0 auto;
+  }
+
+  .label {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 0.2rem 0.6rem;
+    font-size: inherit;
+  }
 }

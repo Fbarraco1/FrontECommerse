@@ -1,159 +1,166 @@
+/* Mobile First - Base styles for mobile */
 .banner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f5f3f4;
-    padding: 4rem 6rem;
-    border-radius: 1rem;
-    font-family: 'Arial', sans-serif;
-    flex-wrap: wrap;
-  }
-  
-  .texto {
-    max-width: 600px;
-  }
-  
-  .texto h1 {
-    font-size: 3rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-  }
-  
-  .texto p {
-    font-size: 1.1rem;
-    color: #666;
-    margin-bottom: 2rem;
-  }
-  
-  .texto button {
-    background-color: black;
-    color: white;
-    border: none;
-    padding: 0.8rem 2rem;
-    border-radius: 999px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-bottom: 3rem;
-  }
-  
-  .stats {
-    display: flex;
-    gap: 3rem;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-  }
-  
-  .stat {
-    text-align: center;
-  }
-  
-  .stat h3 {
-    font-size: 1.5rem;
-    margin: 0;
-  }
-  
-  .stat p {
-    margin: 0.3rem 0 0;
-    color: #555;
-  }
-  
-  .imagen {
-    border-radius: 50%;
-    overflow: hidden;
-    width: 350px;
-    height: 350px;
-    flex-shrink: 0;
-  }
-  
-  .imagen img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .marcas {
-    background-color: black;
-    padding: 2rem 1rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-  
-  .marcas img {
-    max-height: 60px;
-    transition: transform 0.3s ease;
-  }
-  
-  .marcas img:hover {
-    transform: scale(1.1);
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f3f4;
+  padding: 2rem 1rem;
+  border-radius: 1rem;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  gap: 2rem;
+}
 
-  .novedades {
-    text-align: center;
-    padding: 2rem;
-  }
-  
-  .title {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 2rem;
-  }
-  
-  .productsContainer {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    flex-wrap: wrap; /* opcional si quieres responsividad */
-    margin-bottom: 2rem;
-  }
-  
-  .verTodo {
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 999px;
-    padding: 0.5rem 2rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  
-  .verTodo:hover {
-    border-color: #000;
-  }
-  
+.texto {
+  max-width: 100%;
+}
 
-  .wrapper {
+.texto h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.texto p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.texto button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat h3 {
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.stat p {
+  margin: 0.3rem 0 0;
+  color: #555;
+}
+
+.imagen {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 250px;
+  height: 250px;
+  flex-shrink: 0;
+}
+
+.imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.marcas {
+  background-color: black;
+  padding: 1.5rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.marcas img {
+  max-height: 40px;
+  transition: transform 0.3s ease;
+}
+
+.marcas img:hover {
+  transform: scale(1.1);
+}
+
+.novedades {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.productsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.verTodo {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.verTodo:hover {
+  border-color: #000;
+}
+
+.wrapper {
   background-color: #f2f2f2;
-  padding: 2rem;
+  padding: 1.5rem 1rem;
   border-radius: 20px;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   align-items: center;
-  width: 80%;
+  width: 100%;
+  max-width: 100%;
   justify-content: center;
   margin: 0 auto;
-  
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 0.5rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
   align-items: center;
+  width: 100%;
+  padding: 0 0.5rem;
+  max-width: 100%;
 }
 
 .card {
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  width: 400px;
-  height: 240px;
+  width: 100%;
+  max-width: 280px;
+  height: 180px;
   cursor: pointer;
   background-color: white;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
 }
 
 .card img {
@@ -164,11 +171,166 @@
 
 .label {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 8px;
+  left: 8px;
   font-weight: 600;
   color: #000;
-  background: rgba(255, 255, 255, 0.6);
-  padding: 0.2rem 0.6rem;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.3rem 0.7rem;
   border-radius: 8px;
+  font-size: 0.85rem;
+  text-shadow: none;
+}
+
+/* Tablet styles */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .banner {
+    padding: 3rem 2rem;
+  }
+
+  .texto h1 {
+    font-size: 2.5rem;
+  }
+
+  .texto p {
+    font-size: 1.1rem;
+  }
+
+  .stats {
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+  .imagen {
+    width: 300px;
+    height: 300px;
+  }
+
+  .marcas {
+    padding: 2rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .marcas img {
+    max-height: 50px;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .productsContainer {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .wrapper {
+    width: 90%;
+    max-width: 700px;
+    padding: 2rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    max-width: 600px;
+    width: 100%;
+    padding: 0;
+  }
+
+  /* El tercer card ocupa ambas columnas pero NO se pasa del grid */
+  .grid .card:nth-child(3) {
+    grid-column: 1 / span 2;
+    justify-self: center;
+    width: 100%;
+    max-width: 260px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 260px;
+    height: 180px;
+    margin: 0 auto;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1024px) {
+  .banner {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 4rem 6rem;
+    text-align: left;
+  }
+
+  .texto {
+    max-width: 600px;
+  }
+
+  .texto h1 {
+    font-size: 3rem;
+  }
+
+  .texto button {
+    margin-bottom: 3rem;
+  }
+
+  .stats {
+    gap: 3rem;
+    margin-top: 2rem;
+  }
+
+  .stat h3 {
+    font-size: 1.5rem;
+  }
+
+  .imagen {
+    width: 350px;
+    height: 350px;
+  }
+
+  .marcas {
+    justify-content: space-around;
+  }
+
+  .marcas img {
+    max-height: 60px;
+  }
+
+  .novedades {
+    padding: 2rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .wrapper {
+    width: 80%;
+    max-width: 1100px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    max-width: 850px;
+    width: 100%;
+    padding: 0;
+  }
+
+  /* Tercer card ocupa ambas columnas pero no se pasa del grid */
+  .grid .card:nth-child(3) {
+    grid-column: 1 / span 2;
+    justify-self: center;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 400px;
+    height: 240px;
+    margin: 0 auto;
+  }
 }

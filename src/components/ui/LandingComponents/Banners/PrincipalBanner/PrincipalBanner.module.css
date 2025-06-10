@@ -1,47 +1,52 @@
 /* PrincipalBanner.module.css */
+
+/* Base - móvil */
 .banner {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; /* vertical en móvil */
+  justify-content: center;
   align-items: center;
   background-color: #f5f3f4;
-  padding: 4rem 6rem;
+  padding: 2rem 1.5rem;
   border-radius: 1rem;
   font-family: 'Arial', sans-serif;
-  flex-wrap: wrap;
+  gap: 2rem;
 }
 
 .texto {
-  max-width: 600px;
+  max-width: 100%;
+  text-align: center;
 }
 
 .texto h1 {
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1rem;
 }
 
 .texto p {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #666;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .texto button {
   background-color: black;
   color: white;
   border: none;
-  padding: 0.8rem 2rem;
+  padding: 0.7rem 1.8rem;
   border-radius: 999px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .stats {
   display: flex;
-  gap: 3rem;
-  margin-top: 2rem;
+  gap: 2rem;
+  justify-content: center;
   flex-wrap: wrap;
+  margin-top: 0;
 }
 
 .stat {
@@ -49,29 +54,103 @@
 }
 
 .stat h3 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   margin: 0;
 }
 
 .stat p {
   margin: 0.3rem 0 0;
   color: #555;
+  font-size: 0.9rem;
 }
 
 .imagen {
   border-radius: 50%;
   overflow: hidden;
-  width: 350px;
-  height: 350px;
-  flex-shrink: 0;
+  width: 250px;
+  height: 250px;
   position: relative;
+  flex-shrink: 0;
 }
 
 .imagen img {
   width: 100%;
-  height: 120%; /* Hacemos la imagen más alta que el contenedor */
+  height: 120%;
   object-fit: cover;
-  object-position: center 30%; /* Desplazamos la imagen hacia abajo (valores más altos = más abajo) */
+  object-position: center 30%;
   position: absolute;
   top: 0;
+}
+
+/* Tablet - pantallas >= 768px */
+@media (min-width: 768px) {
+  .banner {
+    flex-direction: row; /* horizontal */
+    justify-content: space-between;
+    padding: 3rem 4rem;
+    gap: 3rem;
+  }
+
+  .texto {
+    max-width: 600px;
+    text-align: left;
+  }
+
+  .texto h1 {
+    font-size: 2.5rem;
+  }
+
+  .texto p {
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
+  }
+
+  .texto button {
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .stats {
+    margin-top: 2rem;
+    gap: 3rem;
+    justify-content: flex-start;
+  }
+
+  .stat h3 {
+    font-size: 1.5rem;
+  }
+
+  .stat p {
+    font-size: 1rem;
+  }
+
+  .imagen {
+    width: 320px;
+    height: 320px;
+  }
+}
+
+/* Desktop - pantallas >= 1024px */
+@media (min-width: 1024px) {
+  .banner {
+    padding: 4rem 6rem;
+  }
+
+  .imagen {
+    width: 350px;
+    height: 350px;
+  }
+
+  .texto h1 {
+    font-size: 3rem;
+  }
+
+  .stat h3 {
+    font-size: 1.5rem;
+  }
+
+  .stat p {
+    font-size: 1rem;
+  }
 }

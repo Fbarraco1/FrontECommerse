@@ -9,7 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(243, 241, 241, 0.612)
+  background-color: rgba(243, 241, 241, 0.612);
 }
 
 .logo {
@@ -23,4 +23,47 @@
   justify-content: center;
   align-items: center;
   background-color: #111;
+}
+
+/* Tablet: max-width 1024px */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .container {
+    height: auto;
+    min-height: 100vh;
+    flex-direction: column;
+    background: linear-gradient(to bottom, #ffffff 50%, #111111 50%);
+  }
+  .left, .right {
+    flex: none;
+    width: 100%;
+    min-height: 50vh;
+  }
+  .logo {
+    max-width: 320px;
+    width: 70%;
+  }
+}
+
+/* Mobile: max-width 600px */
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    background: #fff;
+  }
+  .left, .right {
+    flex: none;
+    width: 100%;
+    min-height: unset;
+    padding: 2.5rem 0 1.5rem 0;
+  }
+  .logo {
+    max-width: 220px;
+    width: 90%;
+  }
+  .right {
+    background-color: #111;
+    padding: 2rem 0 2.5rem 0;
+  }
 }
