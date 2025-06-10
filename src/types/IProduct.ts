@@ -1,3 +1,6 @@
+import { ICategory } from "./ICategory";
+
+// types/IProduct.ts
 export interface IProduct {
   id: number;
   nombre: string;
@@ -6,11 +9,8 @@ export interface IProduct {
   descripcion: string;
   color: string;
   marca: string;
-  categoria: {
-    id: number;
-    nombre: string;
-  };
-  imagenes: ImagenProducto[]; // Ahora es un array de objetos
+  imagenes: ImagenProducto[];
+  categoria: ICategory;
 }
 
 export interface ImagenProducto {

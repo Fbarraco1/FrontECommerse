@@ -6,6 +6,8 @@ import { IProduct } from "../../../types/IProduct";
 import { getProductoPorId } from "../../../http/product";
 
 export const ProductDetail = () => {
+
+
   const { id } = useParams();
   const { addItem } = useCartStore();
 
@@ -26,6 +28,7 @@ export const ProductDetail = () => {
       }
 
       setProduct(data);
+console.log("Producto cargado:", data);
 
       // Imagen principal o la primera disponible
       const principal = data.imagenes.find((img) => img.esPrincipal);
@@ -85,7 +88,9 @@ export const ProductDetail = () => {
       <div className={styles.details}>
         <h1 className={styles.title}>{product.nombre}</h1>
         <p className={styles.brand}>Marca: {product.marca}</p>
-        <p className={styles.category}>Categoría: {product.categoria.nombre}</p>
+        <p className={styles.category}>
+  Categoría: {product.categoria?.nombre ?? "Sin categoría"}
+</p>
         <p className={styles.color}>Color: {product.color}</p>
         <p className={styles.price}>${product.precio.toLocaleString()}</p>
         <p className={styles.description}>{product.descripcion}</p>

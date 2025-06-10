@@ -22,31 +22,43 @@ export const getProductoPorId = async (id: string | number): Promise<IProduct | 
   }
 };
 
-export const postNuevoProducto = async (nuevoProducto: IProduct) => {
-    try {
-        const response = await axios.post<IProduct>(`${API_URL}`, nuevoProducto);
-        return response.data;
-    } catch (error) {
-        console.error("Error posting nuevo producto:", error);
-    }
-};
+ export const postNuevoProducto = async (nuevoProducto: IProduct) => {
+     try {
+         const response = await axios.post<IProduct>(`${API_URL}`, nuevoProducto);
+         return response.data;
+     } catch (error) {
+         console.error("Error posting nuevo producto:", error);
+     }
+ };
 
-export const editarProducto = async (productoActualizado: IProduct) => {
-    try {
-        const response = await axios.put<IProduct>(`${API_URL}/${productoActualizado.id}`, {
-            ...productoActualizado,
-        });
-        return response.data;
-    } catch (error) {
-        console.error("Error editando producto:", error);
-    }
-};
+ export const editarProducto = async (productoActualizado: IProduct) => {
+     try {
+         const response = await axios.put<IProduct>(`${API_URL}/${productoActualizado.id}`, {
+             ...productoActualizado,
+         });
+         return response.data;
+     } catch (error) {
+         console.error("Error editando producto:", error);
+     }
+ };
 
-export const eliminarProductoPorID = async (idProducto: string | number) => {
-    try {
-        const response = await axios.delete<IProduct>(`${API_URL}/${idProducto}`);
-        return response.data;
-    } catch (error) {
-        console.error("Error eliminando producto:", error);
-    }
+ export const eliminarProductoPorID = async (idProducto: string | number) => {
+     try {
+         const response = await axios.delete<IProduct>(`${API_URL}/${idProducto}`);
+         return response.data;
+     } catch (error) {
+         console.error("Error eliminando producto:", error);
+     }
+ };
+
+export const productosFiltrados = async (queryParams: string) => {
+  try {
+    console.log("URL enviada al backend:", `${API_URL}/productos/filtrar?${queryParams}`); // Debug
+    const response = await axios.get(`${API_URL}/productos/filtrar?${queryParams}`);
+    console.log("Respuesta del backend:", response.data); // Debug
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener productos filtrados:", error);
+    return [];
+  }
 };
