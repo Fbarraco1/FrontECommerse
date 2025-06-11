@@ -12,6 +12,16 @@ export const getAllProductos = async () => {
     }
 };
 
+export const getAllProductosAdmin = async () => {
+    try {
+        const response = await axios.get<IProduct[]>(`${API_URL}/productos/admin/productos`);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Error getting productos:", error);
+    }
+};
+
 export const getProductoPorId = async (id: string | number): Promise<IProduct | undefined> => {
   try {
     const response = await axios.get<IProduct>(`${API_URL}/productos/${id}`);

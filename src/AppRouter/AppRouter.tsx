@@ -5,6 +5,7 @@ import { RegisterPage } from "../components/ui/register/RegisterPage";
 import CartPage from "../components/screens/user/CartPage/CartPage";
 import ProductDetailPage from "../components/screens/user/ProductDetailPage/ProductDetailPage";
 import ProductPage from "../components/screens/user/ProductPage/ProductPage"; 
+import { Productos } from "../components/screens/admin/Products/Productos";
 
 const AppRouter = () => {
   return (
@@ -23,6 +24,7 @@ const AppRouter = () => {
         <Route path="/productos" element={<ProductPage />} /> 
 
         {/* Rutas protegidas para administrador */}
+        <Route path="/admin/productos" element={<Productos/>} />
       </Routes>
     </BrowserRouter>
   );
