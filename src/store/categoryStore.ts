@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { ICategory } from "../types/ICategory";
-import { getAllCategories } from "../http/category";
+import { createCategory, getAllCategories } from "../http/category";
 import { getAllTypes } from "../http/type";
 
 interface ICategoryStore {
@@ -8,6 +8,7 @@ interface ICategoryStore {
   categoriasFiltradas: ICategory[];
   fetchCategorias: () => Promise<void>;
   filtrarCategoriasPorTipo: (tipoId: number | null) => void;
+  crearCategoria: (categoria: ICategory) => Promise<void>; // 👈 Agrega esto
 }
 
 export const categoryStore = create<ICategoryStore>((set, get) => ({
@@ -58,6 +59,18 @@ export const categoryStore = create<ICategoryStore>((set, get) => ({
           (categoria) => categoria.tipo?.id === tipoId
         ),
       });
+    }
+  },
+
+  crearCategoria: async (categoria) => {
+    try {
+      const nuevaCategoria = await createCategory(categoria);
+      set((state) => ({
+        categorias: [...state.categorias, nuevaCategoria],
+        categoriasFiltradas: [...state.categoriasFiltradas, nuevaCategoria], 
+      }));
+    } catch (error) {
+      console.error("❌ Error al crear categoría:", error);
     }
   },
 }));

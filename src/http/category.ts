@@ -7,3 +7,8 @@ export const getAllCategories = async (): Promise<ICategory[]> => {
   const response = await axios.get<ICategory[]>(`${API_URL}/categorias`);
   return response.data;
 };
+
+export const createCategory = async (category: ICategory): Promise<ICategory> => {
+  const response = await axios.post<ICategory>(`${API_URL}/categorias`, category);
+  return response.data;
+}

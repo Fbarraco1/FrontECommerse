@@ -32,7 +32,7 @@
 
 .logoContainer img {
   max-height: 90px;
-  transform: scale(2.5); /* Escala visual */
+  transform: scale(2); /* Escala visual */
   transform-origin: center; /* Centra el escalado */
 }
 
