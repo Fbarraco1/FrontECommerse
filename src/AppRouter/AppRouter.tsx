@@ -6,6 +6,7 @@ import CartPage from "../components/screens/user/CartPage/CartPage";
 import ProductDetailPage from "../components/screens/user/ProductDetailPage/ProductDetailPage";
 import ProductPage from "../components/screens/user/ProductPage/ProductPage"; 
 import { Productos } from "../components/screens/admin/Products/Productos";
+import { Categorias } from "../components/screens/admin/Categorias/Categorias";
 
 const AppRouter = () => {
   return (
@@ -25,6 +26,8 @@ const AppRouter = () => {
 
         {/* Rutas protegidas para administrador */}
         <Route path="/admin/productos" element={<Productos/>} />
+        <Route path="/admin/categorias" element={<Categorias/>} />
+
       </Routes>
     </BrowserRouter>
   );

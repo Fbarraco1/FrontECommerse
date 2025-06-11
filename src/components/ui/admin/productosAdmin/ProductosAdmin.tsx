@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FiEye, FiEdit2, FiTrash2 } from "react-icons/fi";
 import styles from './ProductosAdmin.module.css';
 import { productStore } from "../../../../store/productStore";
 import { categoryStore } from "../../../../store/categoryStore";
 import { getAllProductosAdmin } from "../../../../http/product";
 import { IProduct } from "../../../../types/IProduct"; // Agregar esta importación
+import { ModalAddProducto } from "../ModalAddProducto/ModalAddProducto";
 
 export const ProductosAdmin = () => {
   const productos = productStore((state) => state.productos); 
@@ -13,6 +14,11 @@ export const ProductosAdmin = () => {
   // Obtener categorías del store
   const categorias = categoryStore((state) => state.categorias);
   const fetchCategorias = categoryStore((state) => state.fetchCategorias);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const abrirModal = () => setIsModalOpen(true);
+  const cerrarModal = () => setIsModalOpen(false);
+
 
   useEffect(() => {
     const cargarDatos = async () => {
@@ -47,17 +53,21 @@ export const ProductosAdmin = () => {
   };
 
   // Opcional: Función para debug - puedes eliminarla después
-  const debugCategorias = () => {
-    console.log("Categorías cargadas:", categorias.length);
-    console.log("Productos cargados:", productos.length);
-    categorias.forEach(cat => {
-      console.log(`Categoría: ${cat.nombre}, Productos: ${cat.productos?.length || 0}`);
-    });
-  };
+  // const debugCategorias = () => {
+  //   console.log("Categorías cargadas:", categorias.length);
+  //   console.log("Productos cargados:", productos.length);
+  //   categorias.forEach(cat => {
+  //     console.log(`Categoría: ${cat.nombre}, Productos: ${cat.productos?.length || 0}`);
+  //   });
+  // };
 
   return (
     <div className={styles.container}>
-      <button className={styles.addButton}>Agregar producto</button>
+       <button className={styles.addButton} onClick={abrirModal}>
+        Agregar producto
+      </button>
+
+      {isModalOpen && <ModalAddProducto onClose={cerrarModal} />}
       <h2 className={styles.title}>Productos</h2>
       <table className={styles.table}>
         <thead>
