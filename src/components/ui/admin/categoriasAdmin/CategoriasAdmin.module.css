@@ -1,0 +1,55 @@
+.container {
+  padding: 20px;
+  background-color: white;
+  text-align: center;
+}
+
+.addButton {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+  z-index: 1000;;
+}
+
+.addButton:hover {
+  background-color: darkgreen;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.table {
+  margin: 0 auto;
+  width: 90%;
+  border-collapse: collapse;
+  background-color: #eee;
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+th {
+  background-color: #ddd;
+  font-weight: bold;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.icon {
+  cursor: pointer;
+}
