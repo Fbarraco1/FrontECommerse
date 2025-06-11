@@ -10,11 +10,16 @@
 }
 
 .logo {
-  font-size: 1.25rem; /* un poco más pequeño */
-  font-weight: 700;
-  color: #000;
-  text-decoration: none;
-  flex-shrink: 0; /* que no reduzca tamaño */
+  font-size: 2.5rem; /* ¡Aumenta el tamaño si quieres más impacto! */
+  font-weight: bold;
+  color: #232323;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Georgia', serif;
+  outline: none;
+  flex-shrink: 0;
+  transition: none;
 }
 
 .nav {
@@ -258,4 +263,21 @@
 
 .nav.open .navItem {
   margin-bottom: 1rem;
+}
+
+/* Agrega esto para el estado deshabilitado visual */
+.navItem.disabled,
+.logo[disabled] {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.logo:disabled {
+  cursor: default;
+  opacity: 1;
+  color: #232323;
+}
+
+.logo:focus {
+  outline: none;
 }

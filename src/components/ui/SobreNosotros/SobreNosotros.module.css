@@ -1,0 +1,111 @@
+.aboutContainer {
+  max-width: 720px;
+  margin: 2.5rem auto 2rem auto;
+  padding: 2.5rem 2rem;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.07), 0 2px 12px rgba(0,0,0,0.03);
+  font-family: 'Georgia', 'Times New Roman', serif;
+  border: 1px solid #e5e5e5;
+}
+
+.aboutTitle {
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #232323;
+  margin-bottom: 1.7rem;
+  text-align: center;
+  letter-spacing: 0.5px;
+  font-family: 'Georgia', serif;
+}
+
+.aboutSubtitle {
+  font-size: 1.18rem;
+  font-weight: 600;
+  color: #232323;
+  margin-top: 2.2rem;
+  margin-bottom: 1.1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+  border: none;
+  padding-left: 0;
+  background: none;
+  border-radius: 0;
+  font-family: 'Georgia', serif;
+  border-bottom: 1.5px solid #e5e5e5;
+  display: block;
+  padding-bottom: 0.4rem;
+  width: 100%;
+}
+
+.aboutParagraph {
+  font-size: 1.08rem;
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 1.1rem;
+  background: #fafbfc;
+  padding: 0.7rem 1rem;
+  border-radius: 7px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.aboutList {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin: 1.5rem 0 2rem 0;
+  padding: 0;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.aboutList li {
+  background: #f4f4f4;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 1.1rem 1.7rem;
+  min-width: 170px;
+  text-align: center;
+  font-size: 1.08rem;
+  color: #232323;
+  font-family: 'Georgia', serif;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  border: 1px solid #e5e5e5;
+  transition: box-shadow 0.2s;
+}
+.aboutList li strong {
+  font-weight: 700;
+  color: #232323;
+  font-family: 'Georgia', serif;
+}
+.aboutList li:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  background: #f9f9f9;
+}
+
+@media (max-width: 600px) {
+  .aboutContainer {
+    padding: 1.2rem 0.5rem;
+    margin: 1.2rem 0.2rem;
+    border-radius: 10px;
+  }
+  .aboutTitle {
+    font-size: 1.5rem;
+  }
+  .aboutSubtitle {
+    font-size: 1rem;
+    margin-top: 1.2rem;
+    padding-left: 0.4rem;
+  }
+  .aboutParagraph,
+  .aboutList li {
+    font-size: 0.98rem;
+    padding: 0.7rem 0.7rem;
+  }
+  .aboutList {
+    gap: 0.7rem;
+  }
+}

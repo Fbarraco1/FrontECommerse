@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { FiSearch, FiShoppingCart, FiUser } from 'react-icons/fi'
 import styles from './Header.module.css'
-import { useNavigate } from 'react-router'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useCartStore } from '../../../store/cartStore'
 
 export const Header = () => {
@@ -9,6 +9,7 @@ export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false) // <--- estado menú hamburguesa
 
   const navigate = useNavigate()
+  const location = useLocation()
   const items = useCartStore((state) => state.items)
   const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0)
 
@@ -26,8 +27,21 @@ export const Header = () => {
 
   return (
     <header className={styles.header}>
-      {/* Logo */}
-      <div className={styles.logo}>ChispaSuits</div>
+      {/* Logo como botón, mismo estilo */}
+      <button
+        className={styles.logo}
+        onClick={() => location.pathname !== '/' && navigate('/')}
+        disabled={location.pathname === '/'}
+        style={{
+          background: 'none',
+          border: 'none',
+          padding: 0,
+          cursor: location.pathname === '/' ? 'default' : 'pointer',
+        }}
+        aria-label="Ir al inicio"
+      >
+        ChispaSuits
+      </button>
 
       {/* Botón hamburguesa móvil */}
       <div
@@ -47,27 +61,51 @@ export const Header = () => {
 
       {/* Navegación */}
       <nav className={`${styles.nav} ${menuOpen ? styles.open : ''}`}>
-        <div
+        <button
           className={styles.navItem}
-          onMouseEnter={() => setShowCategories(true)}
-          onMouseLeave={() => setShowCategories(false)}
-          onClick={handleNavItemClick} // cerrar menú al click en móvil
+          onClick={() => location.pathname !== '/productos' && navigate('/productos')}
+          disabled={location.pathname === '/productos'}
+          style={{
+            background: 'none',
+            border: 'none',
+            fontFamily: 'inherit',
+            fontSize: 'inherit',
+            cursor: location.pathname === '/productos' ? 'default' : 'pointer',
+            opacity: location.pathname === '/productos' ? 0.7 : 1,
+            padding: 0,
+          }}
         >
-          Categorías
-          {showCategories && (
-            <div className={styles.dropdown}>
-              <a href="#" onClick={handleNavItemClick}>Vestidos</a>
-              <a href="#" onClick={handleNavItemClick}>Trajes</a>
-              <a href="#" onClick={handleNavItemClick}>Accesorios</a>
-            </div>
-          )}
-        </div>
-        <a href="#" className={styles.navItem} onClick={handleNavItemClick}>
+          Productos
+        </button>
+        <button
+          className={styles.navItem}
+          onClick={() => location.pathname !== '/sobreNos' && navigate('/sobreNos')}
+          disabled={location.pathname === '/sobreNos'}
+          style={{
+            background: 'none',
+            border: 'none',
+            fontFamily: 'inherit',
+            fontSize: 'inherit',
+            cursor: location.pathname === '/sobreNos' ? 'default' : 'pointer',
+            opacity: location.pathname === '/sobreNos' ? 0.7 : 1,
+            padding: 0,
+          }}
+        >
           Sobre Nosotros
-        </a>
-        <a href="#" className={styles.navItem} onClick={handleNavItemClick}>
+        </button>
+        <button
+          className={styles.navItem}
+          onClick={handleNavItemClick}
+          style={{
+            background: 'none',
+            border: 'none',
+            fontFamily: 'inherit',
+            fontSize: 'inherit',
+            padding: 0,
+          }}
+        >
           Novedades
-        </a>
+        </button>
       </nav>
 
       {/* Buscador */}
