@@ -33,46 +33,22 @@ const AppRouter = () => {
               </RequireAuth>
             } 
           />
-
-          {/* Aquí puedes agregar más rutas que requieran estar logueado como USER */}
-          {/* Por ejemplo, si tienes páginas de perfil, órdenes, etc. */}
-          {/*
-          <Route 
-            path="/profile" 
-            element={
-              <RequireAuth role="USER">
-                <ProfilePage />
-              </RequireAuth>
-            } 
-          />
-          <Route 
-            path="/orders" 
-            element={
-              <RequireAuth role="USER">
-                <OrdersPage />
-              </RequireAuth>
-            } 
-          />
-          */}
-
+          
           {/* ===== RUTAS SOLO PARA ADMINISTRADORES ===== */}
           <Route 
             path="/admin/productos" 
             element={
-              <Productos />
-              // <RequireAuth role="ADMIN">
-                  // <Productos />
-
-              // </RequireAuth>
+              <RequireAuth role="ADMIN">
+                <Productos />
+              </RequireAuth>
             } 
           />
           <Route 
             path="/admin/tipos" 
             element={
-              <Tipos />
-              // <RequireAuth role="ADMIN">
-              //   <Tipos />
-              // </RequireAuth>
+              <RequireAuth role="ADMIN">
+                <Tipos />
+              </RequireAuth>
             } 
           />
 

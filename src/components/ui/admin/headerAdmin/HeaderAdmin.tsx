@@ -54,8 +54,8 @@ export const HeaderAdmin = () => {
               Productos
             </p>
             <p
-              className={`${styles.menuItem} ${location.pathname === "/admin/categorias" ? styles.active : ""}`}
-              onClick={() => navigate("/admin/categorias")}
+              className={`${styles.menuItem} ${location.pathname === "/admin/tipos" ? styles.active : ""}`}
+              onClick={() => navigate("/admin/tipos")}
             >
               Categorías
             </p>

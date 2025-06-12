@@ -6,6 +6,9 @@ import { categoryStore } from "../../../../store/categoryStore";
 import { getAllProductosAdmin } from "../../../../http/product";
 import { IProduct } from "../../../../types/IProduct"; 
 import { ModalAddProducto } from "../ModalAddProducto/ModalAddProducto";
+import { ModalTallesProducto } from "../ModalTalleProduto.tsx/ModalTalleProduto";
+import { ITalle } from "../../../../types/ITalle";
+import { getAllTalles } from "../../../../http/talle";
 
 export const ProductosAdmin = () => {
   const productos = productStore((state) => state.productos); 
@@ -14,6 +17,10 @@ export const ProductosAdmin = () => {
   // Obtener categorías del store
   const categorias = categoryStore((state) => state.categorias);
   const fetchCategorias = categoryStore((state) => state.fetchCategorias);
+
+//Talle-Producto
+const [productoTalleSeleccionado, setProductoTalleSeleccionado] = useState<number | null>(null);
+const [tallesDisponibles, setTallesDisponibles] = useState<ITalle[]>([]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const abrirModal = () => setIsModalOpen(true);
@@ -25,7 +32,8 @@ export const ProductosAdmin = () => {
       try {
         // 1. Cargar categorías primero
         await fetchCategorias();
-        
+        const talles = await getAllTalles();
+        setTallesDisponibles(talles);
         // 2. Luego cargar productos
         const productosData = await getAllProductosAdmin();
         if (productosData) {
@@ -60,6 +68,13 @@ export const ProductosAdmin = () => {
       </button>
 
       {isModalOpen && <ModalAddProducto onClose={cerrarModal} />}
+      {productoTalleSeleccionado && tallesDisponibles.length > 0 && (
+  <ModalTallesProducto
+    productoId={productoTalleSeleccionado}
+    tallesDisponibles={tallesDisponibles}
+    onClose={() => setProductoTalleSeleccionado(null)}
+  />
+)}
       <h2 className={styles.title}>Productos</h2>
       <table className={styles.table}>
         <thead>
@@ -79,7 +94,9 @@ export const ProductosAdmin = () => {
               <td>{prod.nombre}</td>
               <td>{getNombreCategoria(prod)}</td>
               <td>$ {prod.precio}</td>
-              <td>{/*prod.talle*/}</td>
+              <td onClick={() => setProductoTalleSeleccionado(prod.id)} className={styles.clickable}>
+  Ver / Editar
+</td>
               <td><FiEye /></td>
               <td>{prod.cantidad}</td>
               <td className={styles.actions}>
