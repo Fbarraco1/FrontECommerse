@@ -1,29 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { categoryStore } from '../../../../store/categoryStore';
 import styles from './ModalAddCategoria.module.css';
-
-interface ModalAddTiposProps {
+import { typeStore } from "../../../../store/typeStore";
+interface ModalAddCategoriaProps {
   onClose: () => void;
 }
 
-export const ModalAddCategoria = ({ onClose }: ModalAddTiposProps) => {
+export const ModalAddCategoria = ({ onClose }: ModalAddCategoriaProps) => {
   const crearCategoria = categoryStore((state) => state.crearCategoria);
+  const tipos = typeStore((state) => state.tipos); // <-- obtener tipos del store
+  const fetchTipos = typeStore((state) => state.fetchTipos);
+
   const [nombre, setNombre] = useState("");
+  const [tipoSeleccionado, setTipoSeleccionado] = useState(""); // <-- estado para el tipo
+
+  useEffect(() => {
+    fetchTipos();
+  }, [fetchTipos]);
+
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!nombre.trim()) return;
-    await crearCategoria({ nombre }); 
-    onClose(); 
+    if (!nombre.trim() || !tipoSeleccionado) return;
+    await crearCategoria({ nombre, tipoId: Number(tipoSeleccionado) }); // <-- enviar tipoId
+    onClose();
   };
 
   return (
     <div className={styles.overlay}>
       <div className={styles.container}>
-        <h2>Agregar Tipos</h2>
+        <h2>Agregar Categoria</h2>
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="nombre">Nombre Tipo</label>
+            <label htmlFor="nombre">Nombre Categoria</label>
             <input
               type="text"
               id="nombre"
@@ -32,6 +41,23 @@ export const ModalAddCategoria = ({ onClose }: ModalAddTiposProps) => {
               onChange={(e) => setNombre(e.target.value)}
               required
             />
+          </div>
+          <div>
+            <label htmlFor="tipo">Tipo</label>
+            <select
+              id="tipo"
+              name="tipo"
+              value={tipoSeleccionado}
+              onChange={(e) => setTipoSeleccionado(e.target.value)}
+              required
+            >
+              <option value="">Seleccione un Tipo</option>
+              {tipos.map((tip) => (
+                <option key={tip.id} value={tip.id}>
+                  {tip.nombre}
+                </option>
+              ))}
+            </select>
           </div>
           <div className={styles.buttons}>
             <button type="submit">Agregar</button>

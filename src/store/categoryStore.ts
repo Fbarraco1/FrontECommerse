@@ -2,13 +2,14 @@ import { create } from "zustand";
 import { ICategory } from "../types/ICategory";
 import { createCategory, getAllCategories } from "../http/category";
 import { getAllTypes } from "../http/type";
+import { INuevaCategoria } from "../types/INuevaCategoria";
 
 interface ICategoryStore {
   categorias: ICategory[];
   categoriasFiltradas: ICategory[];
   fetchCategorias: () => Promise<void>;
   filtrarCategoriasPorTipo: (tipoId: number | null) => void;
-  crearCategoria: (categoria: { nombre: string }) => Promise<void>; // 👈 Cambia aquí
+  crearCategoria: (categoria: INuevaCategoria) => Promise<void>; 
 }
 
 export const categoryStore = create<ICategoryStore>((set, get) => ({
@@ -64,7 +65,7 @@ export const categoryStore = create<ICategoryStore>((set, get) => ({
 
   crearCategoria: async (categoria) => {
     try {
-      const nuevaCategoria = await createCategory(categoria); // Esto ahora recibe solo { nombre }
+      const nuevaCategoria = await createCategory(categoria); 
       set((state) => ({
         categorias: [...state.categorias, nuevaCategoria],
         categoriasFiltradas: [...state.categoriasFiltradas, nuevaCategoria], 
