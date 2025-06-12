@@ -8,7 +8,7 @@ interface ICategoryStore {
   categoriasFiltradas: ICategory[];
   fetchCategorias: () => Promise<void>;
   filtrarCategoriasPorTipo: (tipoId: number | null) => void;
-  crearCategoria: (categoria: ICategory) => Promise<void>; // 👈 Agrega esto
+  crearCategoria: (categoria: { nombre: string }) => Promise<void>; // 👈 Cambia aquí
 }
 
 export const categoryStore = create<ICategoryStore>((set, get) => ({
@@ -64,7 +64,7 @@ export const categoryStore = create<ICategoryStore>((set, get) => ({
 
   crearCategoria: async (categoria) => {
     try {
-      const nuevaCategoria = await createCategory(categoria);
+      const nuevaCategoria = await createCategory(categoria); // Esto ahora recibe solo { nombre }
       set((state) => ({
         categorias: [...state.categorias, nuevaCategoria],
         categoriasFiltradas: [...state.categoriasFiltradas, nuevaCategoria], 
