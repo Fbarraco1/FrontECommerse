@@ -1,5 +1,5 @@
 import styles from './RegisterPage.module.css'
-import { RegisterForm } from './RegisterForm'
+import { RegisterForm } from '../../ui/register/RegisterForm'
 import logo from '../../../assets/logo.png' // Asegúrate de que la ruta sea correcta
 export const RegisterPage = () => {
   return (

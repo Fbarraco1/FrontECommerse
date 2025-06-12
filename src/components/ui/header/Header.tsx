@@ -1,23 +1,46 @@
 import { useState } from 'react'
-import { FiSearch, FiShoppingCart, FiUser } from 'react-icons/fi'
+import { FiSearch, FiShoppingCart, FiUser, FiLogOut, FiSettings } from 'react-icons/fi'
 import styles from './Header.module.css'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useCartStore } from '../../../store/cartStore'
+import { useAuth } from '../../../context/AuthContext'
+import { RoleBasedComponent, useRole } from '../RoleBased/RoleBasedComponent'
 
 export const Header = () => {
   const [showCategories, setShowCategories] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false) // <--- estado menú hamburguesa
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [showUserMenu, setShowUserMenu] = useState(false) // Para el menú desplegable del usuario
 
   const navigate = useNavigate()
   const location = useLocation()
   const items = useCartStore((state) => state.items)
   const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0)
 
+  // Hooks de autenticación y roles
+  const { user, isAuthenticated, logout } = useAuth()
+  const { isAdmin, isUser } = useRole()
+
   const handleLoginClick = () => {
-    navigate('/login')
+    if (isAuthenticated) {
+      setShowUserMenu(!showUserMenu)
+    } else {
+      navigate('/login')
+    }
   }
+
   const handleCartClick = () => {
     navigate('/cart')
+  }
+
+  const handleLogout = () => {
+    logout()
+    setShowUserMenu(false)
+    navigate('/')
+  }
+
+  const handleAdminPanelClick = () => {
+    setShowUserMenu(false)
+    navigate('/admin/productos')
   }
 
   // Para cerrar menú al seleccionar una opción
@@ -106,6 +129,27 @@ export const Header = () => {
         >
           Novedades
         </button>
+
+        {/* Menú de administrador - solo visible para admins */}
+        <RoleBasedComponent allowedRoles={["ADMIN"]}>
+          <button
+            className={styles.navItem}
+            onClick={() => {
+              handleNavItemClick()
+              navigate('/admin/productos')
+            }}
+            style={{
+              background: 'none',
+              border: 'none',
+              fontFamily: 'inherit',
+              fontSize: 'inherit',
+              padding: 0,
+              color: '#ff6b35', // Color diferente para destacar que es admin
+            }}
+          >
+            Panel Admin
+          </button>
+        </RoleBasedComponent>
       </nav>
 
       {/* Buscador */}
@@ -116,12 +160,127 @@ export const Header = () => {
 
       {/* Íconos de acciones */}
       <div className={styles.icons}>
-        <div className={styles.cartIconWrapper}>
-          <FiShoppingCart size={20} onClick={handleCartClick} style={{ cursor: 'pointer' }} />
-          {totalQuantity > 0 && <span className={styles.cartBadge}>{totalQuantity}</span>}
+        {/* Carrito - solo para usuarios autenticados */}
+        <RoleBasedComponent allowedRoles={["USER", "ADMIN"]}>
+          <div className={styles.cartIconWrapper}>
+            <FiShoppingCart 
+              size={20} 
+              onClick={handleCartClick} 
+              style={{ cursor: 'pointer' }} 
+            />
+            {totalQuantity > 0 && <span className={styles.cartBadge}>{totalQuantity}</span>}
+          </div>
+        </RoleBasedComponent>
+
+        {/* Ícono de usuario con menú desplegable */}
+        <div className={styles.userIconWrapper} style={{ position: 'relative' }}>
+          <FiUser 
+            size={20} 
+            onClick={handleLoginClick} 
+            style={{ cursor: 'pointer' }} 
+          />
+          
+          {/* Mostrar nombre del usuario si está logueado */}
+          {isAuthenticated && user && (
+            <span className={styles.userName} style={{ 
+              fontSize: '12px', 
+              marginLeft: '5px',
+              color: isAdmin ? '#ff6b35' : '#333'
+            }}>
+              {user.nombre}
+            </span>
+          )}
+
+          {/* Menú desplegable del usuario */}
+          {showUserMenu && isAuthenticated && (
+            <div className={styles.userDropdownMenu} style={{
+              position: 'absolute',
+              top: '100%',
+              right: '0',
+              backgroundColor: 'white',
+              border: '1px solid #ddd',
+              borderRadius: '8px',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+              minWidth: '180px',
+              zIndex: 1000,
+              padding: '8px 0'
+            }}>
+              {/* Información del usuario */}
+              <div style={{ 
+                padding: '12px 16px', 
+                borderBottom: '1px solid #eee',
+                fontSize: '14px'
+              }}>
+                <div style={{ fontWeight: 'bold' }}>{user?.nombre}</div>
+                <div style={{ color: '#666', fontSize: '12px' }}>
+                  {isAdmin ? '👑 Administrador' : '👤 Usuario'}
+                </div>
+              </div>
+
+              {/* Opciones del menú */}
+              {isAdmin && (
+                <button
+                  onClick={handleAdminPanelClick}
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    border: 'none',
+                    background: 'none',
+                    textAlign: 'left',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                >
+                  <FiSettings size={16} />
+                  Panel de Admin
+                </button>
+              )}
+
+              <button
+                onClick={handleLogout}
+                style={{
+                  width: '100%',
+                  padding: '12px 16px',
+                  border: 'none',
+                  background: 'none',
+                  textAlign: 'left',
+                  cursor: 'pointer',
+                  fontSize: '14px',
+                  color: '#dc3545',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+              >
+                <FiLogOut size={16} />
+                Cerrar Sesión
+              </button>
+            </div>
+          )}
         </div>
-        <FiUser size={20} onClick={handleLoginClick} style={{ cursor: 'pointer' }} />
       </div>
+
+      {/* Overlay para cerrar el menú del usuario al hacer clic fuera */}
+      {showUserMenu && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 999
+          }}
+          onClick={() => setShowUserMenu(false)}
+        />
+      )}
     </header>
   )
 }

@@ -1,38 +1,99 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LandingUser } from "../components/screens/user/Landing/LandingUser";
-import { LoginPage } from "../components/ui/login/LoginPage";
-import { RegisterPage } from "../components/ui/register/RegisterPage";
+import { LoginPage } from "../components/screens/Login/LoginPage";
+import { RegisterPage } from "../components/screens/Login/RegisterPage";
 import CartPage from "../components/screens/user/CartPage/CartPage";
 import ProductDetailPage from "../components/screens/user/ProductDetailPage/ProductDetailPage";
 import { Productos } from "../components/screens/admin/Products/Productos";
 import { Categorias } from "../components/screens/admin/Categorias/Categorias";
-import ProductCategorie from "../components/screens/user/ProductCategoriePage/ProductCategorie"; // Asegúrate de que esta ruta sea correcta
-import SobreNosFinal from "../components/screens/user/SobreNosFInal/SobreNosFinal"; // Agrega esta línea
+import ProductCategorie from "../components/screens/user/ProductCategoriePage/ProductCategorie";
+import SobreNosFinal from "../components/screens/user/SobreNosFInal/SobreNosFinal";
+import { AuthProvider } from "../context/AuthContext";
+import RequireAuth from "../router/RequireAuth";
 
 const AppRouter = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        {/* Rutas públicas con layout de usuario */}
-        <Route path="/" element={<LandingUser />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/producto/:id" element={<ProductDetailPage />} />
+      <AuthProvider>
+        <Routes>
+          {/* ===== RUTAS PÚBLICAS ===== */}
+          <Route path="/" element={<LandingUser />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/producto/:id" element={<ProductDetailPage />} />
+          <Route path="/productos" element={<ProductCategorie />} />
+          <Route path="/sobreNos" element={<SobreNosFinal />} />
 
-        {/* Nueva ruta para el carrito */}
-        <Route path="/cart" element={<CartPage />} />
+          {/* ===== RUTAS PARA USUARIOS LOGUEADOS (USER) ===== */}
+          <Route 
+            path="/cart" 
+            element={
+              <RequireAuth role="USER">
+                <CartPage />
+              </RequireAuth>
+            } 
+          />
 
-        {/* Nueva ruta para ver productos con filtros */}
-        <Route path="/productos" element={<ProductCategorie />} /> 
+          {/* Aquí puedes agregar más rutas que requieran estar logueado como USER */}
+          {/* Por ejemplo, si tienes páginas de perfil, órdenes, etc. */}
+          {/*
+          <Route 
+            path="/profile" 
+            element={
+              <RequireAuth role="USER">
+                <ProfilePage />
+              </RequireAuth>
+            } 
+          />
+          <Route 
+            path="/orders" 
+            element={
+              <RequireAuth role="USER">
+                <OrdersPage />
+              </RequireAuth>
+            } 
+          />
+          */}
 
-        {/* Nueva ruta sobre nosotros */}
-        <Route path="/sobreNos" element={<SobreNosFinal />} />
+          {/* ===== RUTAS SOLO PARA ADMINISTRADORES ===== */}
+          <Route 
+            path="/admin/productos" 
+            element={
+              <RequireAuth role="ADMIN">
+                <Productos />
+              </RequireAuth>
+            } 
+          />
+          <Route 
+            path="/admin/categorias" 
+            element={
+              <RequireAuth role="ADMIN">
+                <Categorias />
+              </RequireAuth>
+            } 
+          />
 
-        {/* Rutas protegidas para administrador */}
-        <Route path="/admin/productos" element={<Productos/>} />
-        <Route path="/admin/categorias" element={<Categorias/>} />
-
-      </Routes>
+          {/* ===== RUTA PARA PÁGINAS NO ENCONTRADAS ===== */}
+          <Route 
+            path="*" 
+            element={
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                height: '100vh', 
+                flexDirection: 'column' 
+              }}>
+                <h1>404 - Página no encontrada</h1>
+                <p>La página que buscas no existe.</p>
+                <a href="/" style={{ color: '#007bff', textDecoration: 'underline' }}>
+                  Volver al inicio
+                </a>
+              </div>
+            } 
+          />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 };
