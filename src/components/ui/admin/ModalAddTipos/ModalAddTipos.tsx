@@ -1,19 +1,19 @@
 import { useState } from "react";
-import { categoryStore } from '../../../../store/categoryStore';
-import styles from './ModalAddCategoria.module.css';
+import styles from './ModalAddTipos.module.css';
+import { typeStore } from "../../../../store/typeStore";
 
 interface ModalAddTiposProps {
   onClose: () => void;
 }
 
-export const ModalAddCategoria = ({ onClose }: ModalAddTiposProps) => {
-  const crearCategoria = categoryStore((state) => state.crearCategoria);
+export const ModalAddTipos = ({ onClose }: ModalAddTiposProps) => {
+  const crearTipo = typeStore((state) => state.crearTipo);
   const [nombre, setNombre] = useState("");
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!nombre.trim()) return;
-    await crearCategoria({ nombre }); 
+    await crearTipo({ nombre, categorias: [] }); 
     onClose(); 
   };
 

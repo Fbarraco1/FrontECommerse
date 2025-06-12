@@ -4,7 +4,7 @@ import styles from './ProductosAdmin.module.css';
 import { productStore } from "../../../../store/productStore";
 import { categoryStore } from "../../../../store/categoryStore";
 import { getAllProductosAdmin } from "../../../../http/product";
-import { IProduct } from "../../../../types/IProduct"; // Agregar esta importación
+import { IProduct } from "../../../../types/IProduct"; 
 import { ModalAddProducto } from "../ModalAddProducto/ModalAddProducto";
 
 export const ProductosAdmin = () => {
@@ -52,14 +52,6 @@ export const ProductosAdmin = () => {
     return categoria?.nombre || 'Sin categoría';
   };
 
-  // Opcional: Función para debug - puedes eliminarla después
-  // const debugCategorias = () => {
-  //   console.log("Categorías cargadas:", categorias.length);
-  //   console.log("Productos cargados:", productos.length);
-  //   categorias.forEach(cat => {
-  //     console.log(`Categoría: ${cat.nombre}, Productos: ${cat.productos?.length || 0}`);
-  //   });
-  // };
 
   return (
     <div className={styles.container}>

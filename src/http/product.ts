@@ -1,6 +1,7 @@
 import axios from "axios";
 import { IProduct } from "../types/IProduct";
 import { API_URL } from "../../src/utils/constants"
+import { INuevoProducto } from "../types/INuevoProducto";
 
 export const getAllProductos = async () => {
     try {
@@ -32,9 +33,9 @@ export const getProductoPorId = async (id: string | number): Promise<IProduct | 
   }
 };
 
- export const postNuevoProducto = async (nuevoProducto: IProduct) => {
+ export const postNuevoProducto = async (nuevoProducto: INuevoProducto) => {
      try {
-         const response = await axios.post<IProduct>(`${API_URL}`, nuevoProducto);
+         const response = await axios.post<IProduct>(`${API_URL}/productos`, nuevoProducto);
          return response.data;
      } catch (error) {
          console.error("Error posting nuevo producto:", error);

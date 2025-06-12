@@ -3,8 +3,7 @@ import styles from './ModalAddProducto.module.css';
 import { productStore } from "../../../../store/productStore";
 import { postNuevoProducto } from "../../../../http/product";
 import { categoryStore } from "../../../../store/categoryStore";
-import { getAllTalles } from "../../../../http/talle"; // importa el servicio
-import { ITalle } from "../../../../types/ITalle";
+import { INuevoProducto } from "../../../../types/INuevoProducto";
 
 interface ModalAddProductoProps {
   onClose: () => void;
@@ -18,10 +17,7 @@ export const ModalAddProducto = ({ onClose }: ModalAddProductoProps) => {
   const [marca, setMarca] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [color, setColor] = useState("");
-  const [imagenes] = useState("");
-  const [talles, setTalles] = useState<ITalle[]>([]);
-  const [talleSeleccionado, setTalleSeleccionado] = useState(""); // Para el valor seleccionado
-
+  const [imagenes] = useState([]);
 
   const categorias = categoryStore((state) => state.categorias);
 
@@ -29,17 +25,21 @@ export const ModalAddProducto = ({ onClose }: ModalAddProductoProps) => {
 
   useEffect(() => {
     categoryStore.getState().fetchCategorias();
-    // Cargar talles disponibles
-    getAllTalles().then(setTalles);
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const nuevoProducto = {
+    // Buscar la categoría seleccionada por id
+    const categoriaSeleccionada = categorias.find(cat => cat.id === Number(categoria));
+    if (!categoriaSeleccionada) {
+      alert("Debe seleccionar una categoría válida");
+      return;
+    }
+
+    const nuevoProducto: INuevoProducto  = {
       nombre,
-      talle: talleSeleccionado,
-      categoria: Number(categoria), 
+      categoria: categoriaSeleccionada,
       precio: Number(precio),
       cantidad: Number(cantidad),
       marca,
@@ -75,24 +75,6 @@ export const ModalAddProducto = ({ onClose }: ModalAddProductoProps) => {
                         onChange={(e) => setNombre(e.target.value)}
                         required 
                     />
-                </div>
-                
-                <div>
-                    <label htmlFor="talle">Talle</label>
-                    <select
-                      id="talle"
-                      name="talle"
-                      value={talleSeleccionado}
-                      onChange={(e) => setTalleSeleccionado(e.target.value)}
-                      required
-                    >
-                      <option value="">Seleccione un talle</option>
-                      {talles.map((t) => (
-                        <option key={t.id} value={t.tipoTalle}>
-                          {t.tipoTalle}
-                        </option>
-                      ))}
-                    </select>
                 </div>
                 
                 <div>

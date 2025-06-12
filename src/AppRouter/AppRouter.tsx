@@ -5,7 +5,7 @@ import { RegisterPage } from "../components/screens/Login/RegisterPage";
 import CartPage from "../components/screens/user/CartPage/CartPage";
 import ProductDetailPage from "../components/screens/user/ProductDetailPage/ProductDetailPage";
 import { Productos } from "../components/screens/admin/Products/Productos";
-import { Categorias } from "../components/screens/admin/Categorias/Categorias";
+import { Tipos } from "../components/screens/admin/Tipos/Tipos";
 import ProductCategorie from "../components/screens/user/ProductCategoriePage/ProductCategorie";
 import SobreNosFinal from "../components/screens/user/SobreNosFInal/SobreNosFinal";
 import { AuthProvider } from "../context/AuthContext";
@@ -59,17 +59,20 @@ const AppRouter = () => {
           <Route 
             path="/admin/productos" 
             element={
-              <RequireAuth role="ADMIN">
-                <Productos />
-              </RequireAuth>
+              <Productos />
+              // <RequireAuth role="ADMIN">
+                  // <Productos />
+
+              // </RequireAuth>
             } 
           />
           <Route 
-            path="/admin/categorias" 
+            path="/admin/tipos" 
             element={
-              <RequireAuth role="ADMIN">
-                <Categorias />
-              </RequireAuth>
+              <Tipos />
+              // <RequireAuth role="ADMIN">
+              //   <Tipos />
+              // </RequireAuth>
             } 
           />
 

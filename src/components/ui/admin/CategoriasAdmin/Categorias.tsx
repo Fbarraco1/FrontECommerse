@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import styles from './CategoriasAdmin.module.css';
-import { ModalAddCategoria } from "../ModalAddCategoria/ModalAddCategoria";
+import styles from './TiposAdmin.module.css';
+import { ModalAddTipos } from "../ModalAddTipos/ModalAddTipos";
 import { categoryStore } from "../../../../store/categoryStore";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 
-export const CategoriasAdmin = () => {
+export const Categorias = () => {
     const categorias = categoryStore((state) => state.categorias); 
     const fetchCategorias = categoryStore((state) => state.fetchCategorias);
 
@@ -21,7 +21,7 @@ export const CategoriasAdmin = () => {
         <button className={styles.addButton} onClick={abrirModal}>
             Agregar Categoria
         </button>
-        {isModalOpen && <ModalAddCategoria onClose={cerrarModal} />}
+        {isModalOpen && <ModalAddTipos onClose={cerrarModal} />}
 
         <h2 className={styles.title}>Categorias</h2>
         <table className={styles.table}>
