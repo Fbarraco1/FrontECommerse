@@ -10,6 +10,10 @@ import ProductCategorie from "../components/screens/user/ProductCategoriePage/Pr
 import SobreNosFinal from "../components/screens/user/SobreNosFInal/SobreNosFinal";
 import { AuthProvider } from "../context/AuthContext";
 import RequireAuth from "../router/RequireAuth";
+import { PaymentSuccess } from "../components/ui/PaymentStatus/PaymentSuccess"; 
+import { PaymentPending } from "../components/ui/PaymentStatus/PaymentPending";
+import { PaymentFailure } from "../components/ui/PaymentStatus/PaymentFailure"; 
+
 
 const AppRouter = () => {
   return (
@@ -33,6 +37,10 @@ const AppRouter = () => {
               </RequireAuth>
             } 
           />
+          <Route path="/paymentSuccess" element={<PaymentSuccess />} />
+          <Route path="/paymentPending" element={<PaymentPending />} />
+          <Route path="/paymentFailure" element={<PaymentFailure />} />
+
 
           {/* Aquí puedes agregar más rutas que requieran estar logueado como USER */}
           {/* Por ejemplo, si tienes páginas de perfil, órdenes, etc. */}
@@ -54,6 +62,7 @@ const AppRouter = () => {
             } 
           />
           */}
+          
 
           {/* ===== RUTAS SOLO PARA ADMINISTRADORES ===== */}
           <Route 

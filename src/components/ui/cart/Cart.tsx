@@ -10,6 +10,60 @@ const Cart = () => {
   // 🚚 Costo de envío fijo
   const shippingCost = 15;
 
+  // Función para crear preferencia y redirigir a Mercado Pago
+  // handleCheckout modificado:
+const handleCheckout = async () => {
+  if (items.length === 0) {
+    alert("El carrito está vacío");
+    return;
+  }
+
+  try {
+    const productsForBackend = items.map((item) => ({
+      id: item.id,
+      nombre: item.name,
+      descripcion: item.name,
+      cantidad: item.quantity,
+      precio: item.price,
+      color: item.color,
+      marca: "",
+    }));
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("No estás autenticado. Por favor, inicia sesión.");
+      return;
+    }
+
+      const body = {
+      items: productsForBackend,
+    };
+
+
+    const response = await fetch("http://localhost:9000/api/pagos/crear-preferencia", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    });
+
+    const data = await response.json();
+
+    if (data.initPoint) {
+      window.location.href = data.initPoint;
+    } else {
+      alert("Error al crear la preferencia de pago");
+      console.error("Respuesta backend:", data);
+    }
+  } catch (error) {
+    console.error("Error en el pago:", error);
+    alert("Ocurrió un error al procesar el pago");
+  }
+};
+
   return (
     <div className={styles.cartContainer}>
       {/* 🛒 Lista de productos */}
@@ -60,7 +114,9 @@ const Cart = () => {
               <span>${(subtotal + shippingCost).toFixed(2)}</span>
             </div>
 
-            <button className={styles.checkoutButton}>Forma de pago →</button>
+            <button className={styles.checkoutButton} onClick={handleCheckout}>
+              Forma de pago →
+            </button>
           </div>
         </>
       )}
