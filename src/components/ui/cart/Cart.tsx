@@ -1,8 +1,37 @@
+import { useEffect, useState } from "react";
 import { useCartStore } from "../../../store/cartStore";
+import { getAllDirecciones, createDireccion } from "../../../http/direccion";
+import { IDireccion } from "../../../types/IDireccion";
 import styles from "./Cart.module.css";
 
 const Cart = () => {
   const { items, removeItem, increaseQuantity, decreaseQuantity, clearCart } = useCartStore();
+
+  // Estado para direcciones y selección
+  const [direcciones, setDirecciones] = useState<IDireccion[]>([]);
+  const [direccionSeleccionada, setDireccionSeleccionada] = useState<number | null>(null);
+
+  // Estado para crear nueva dirección
+  const [nuevaDireccion, setNuevaDireccion] = useState({ calle: "", localidad: "", cp: "" });
+  const [creandoDireccion, setCreandoDireccion] = useState(false);
+
+  // Obtener direcciones del usuario al montar
+  useEffect(() => {
+    const fetchDirecciones = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+        // Aquí deberías obtener el id del usuario autenticado
+        // Por simplicidad, supongamos que el backend filtra por usuario autenticado
+        const dirs = await getAllDirecciones();
+        setDirecciones(dirs);
+        if (dirs.length > 0) setDireccionSeleccionada(dirs[0].id);
+      } catch (e) {
+        setDirecciones([]);
+      }
+    };
+    fetchDirecciones();
+  }, []);
 
   // 💰 Calcular subtotal (suma de precios * cantidades)
   const subtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -15,6 +44,10 @@ const Cart = () => {
   const handleCheckout = async () => {
     if (items.length === 0) {
       alert("El carrito está vacío");
+      return;
+    }
+    if (!direccionSeleccionada) {
+      alert("Selecciona una dirección de entrega");
       return;
     }
 
@@ -38,6 +71,7 @@ const Cart = () => {
 
       const body = {
         items: productsForBackend,
+        direccionId: direccionSeleccionada,
       };
 
       const response = await fetch("http://localhost:9000/api/pagos/crear-preferencia", {
@@ -64,8 +98,77 @@ const Cart = () => {
     }
   };
 
+  // Función para crear una nueva dirección
+  const handleCrearDireccion = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const usuarioId = user.id;
+      const nueva = await createDireccion({ ...nuevaDireccion, usuarioId });
+      setDirecciones((prev) => [...prev, nueva]);
+      setDireccionSeleccionada(nueva.id);
+      setNuevaDireccion({ calle: "", localidad: "", cp: "" });
+      setCreandoDireccion(false);
+    } catch (e) {
+      alert("Error al crear dirección");
+    }
+  };
+
   return (
     <div className={styles.cartContainer}>
+      {/* Selección de dirección */}
+      <div className={styles.direccionBox}>
+        <h3>Dirección de entrega</h3>
+        {direcciones.length > 0 && !creandoDireccion ? (
+          <>
+            <select
+              value={direccionSeleccionada ?? ""}
+              onChange={e => setDireccionSeleccionada(Number(e.target.value))}
+              className={styles.selectDireccion}
+            >
+              {direcciones.map(dir => (
+                <option key={dir.id} value={dir.id}>
+                  {dir.calle}, {dir.localidad}, CP {dir.cp}
+                </option>
+              ))}
+            </select>
+            <button type="button" onClick={() => setCreandoDireccion(true)}>
+              + Nueva dirección
+            </button>
+          </>
+        ) : (
+          <form onSubmit={handleCrearDireccion} className={styles.formDireccion}>
+            <input
+              type="text"
+              placeholder="Calle"
+              value={nuevaDireccion.calle}
+              onChange={e => setNuevaDireccion({ ...nuevaDireccion, calle: e.target.value })}
+              required
+            />
+            <input
+              type="text"
+              placeholder="Localidad"
+              value={nuevaDireccion.localidad}
+              onChange={e => setNuevaDireccion({ ...nuevaDireccion, localidad: e.target.value })}
+              required
+            />
+            <input
+              type="text"
+              placeholder="CP"
+              value={nuevaDireccion.cp}
+              onChange={e => setNuevaDireccion({ ...nuevaDireccion, cp: e.target.value })}
+              required
+            />
+            <button type="submit">Guardar dirección</button>
+            {direcciones.length > 0 && (
+              <button type="button" onClick={() => setCreandoDireccion(false)}>
+                Cancelar
+              </button>
+            )}
+          </form>
+        )}
+      </div>
+
       {/* 🛒 Lista de productos */}
       {items.length === 0 ? (
         <p>Tu carrito está vacío.</p>
