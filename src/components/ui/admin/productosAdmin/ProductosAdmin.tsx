@@ -1,28 +1,40 @@
 import { useEffect, useState } from "react";
 import { FiEdit2, FiEye, FiTrash2 } from "react-icons/fi";
-import styles from './ProductosAdmin.module.css';
+import styles from "./ProductosAdmin.module.css";
 import { productStore } from "../../../../store/productStore";
 import { categoryStore } from "../../../../store/categoryStore";
-import { getAllProductosAdmin, eliminarProductoPorID } from "../../../../http/product";
-import { IProduct } from "../../../../types/IProduct"; 
+import {
+  getAllProductosAdmin,
+  eliminarProductoPorID,
+} from "../../../../http/product";
+import { ImagenProducto, IProduct } from "../../../../types/IProduct";
 import { ModalAddProducto } from "../ModalAddProducto/ModalAddProducto";
 import { ModalAddTalle } from "../ModalAddTalle/ModalAddTalle";
 import { ModalAddImagen } from "../ModalAddImagen/ModalAddImagen";
-
+import { ModalVerImagenes } from "../ModalVerImagenes/ModalVerImagenes";
 
 export const ProductosAdmin = () => {
-  const productos = productStore((state) => state.productos); 
+  const productos = productStore((state) => state.productos);
   const setArrayProductos = productStore((state) => state.setArrayProductos);
-  
+
   // Obtener categorías del store
   const categorias = categoryStore((state) => state.categorias);
   const fetchCategorias = categoryStore((state) => state.fetchCategorias);
 
-
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productoEditar, setProductoEditar] = useState<IProduct | null>(null);
 
+  const [isModalVerImagenesOpen, setIsModalVerImagenesOpen] = useState(false);
+  const [imagenesProductoSeleccionado, setImagenesProductoSeleccionado] = useState<ImagenProducto[]>([]);
+
+  const abrirModalVerImagenes = (imagenes: ImagenProducto[]) => {
+    setImagenesProductoSeleccionado(imagenes);
+    setIsModalVerImagenesOpen(true);
+  };
+  const cerrarModalVerImagenes = () => {
+    setIsModalVerImagenesOpen(false);
+    setImagenesProductoSeleccionado([]);
+  };
   const abrirModal = () => {
     setProductoEditar(null); // Para agregar
     setIsModalOpen(true);
@@ -42,14 +54,18 @@ export const ProductosAdmin = () => {
     if (productosData) {
       setArrayProductos(productosData);
     }
-  }
+  };
 
   // Estado para el talle seleccionado por producto
-  const [talleSeleccionado, setTalleSeleccionado] = useState<{ [key: number]: number }>({});
+  const [talleSeleccionado, setTalleSeleccionado] = useState<{
+    [key: number]: number;
+  }>({});
 
   // Estado para el modal de talle y el producto seleccionado
   const [isModalTalleOpen, setIsModalTalleOpen] = useState(false);
-  const [productoIdParaTalle, setProductoIdParaTalle] = useState<number | null>(null);
+  const [productoIdParaTalle, setProductoIdParaTalle] = useState<number | null>(
+    null
+  );
 
   const abrirModalTalle = (productoId: number) => {
     setProductoIdParaTalle(productoId);
@@ -67,7 +83,9 @@ export const ProductosAdmin = () => {
 
   // Estado para el modal de imagen y el producto seleccionado
   const [isModalImagenOpen, setIsModalImagenOpen] = useState(false);
-  const [productoIdParaImagen, setProductoIdParaImagen] = useState<number | null>(null);
+  const [productoIdParaImagen, setProductoIdParaImagen] = useState<
+    number | null
+  >(null);
 
   const abrirModalImagen = (productoId: number) => {
     setProductoIdParaImagen(productoId);
@@ -80,7 +98,6 @@ export const ProductosAdmin = () => {
     // const productosData = await getAllProductosAdmin();
     // if (productosData) setArrayProductos(productosData);
   };
-
 
   useEffect(() => {
     const cargarDatos = async () => {
@@ -105,11 +122,11 @@ export const ProductosAdmin = () => {
   // Función helper para obtener nombre de categoría
   const getNombreCategoria = (producto: IProduct): string => {
     // Buscar en las categorías cuál contiene este producto
-    const categoria = categorias.find(cat => 
-      cat.productos?.some(p => p.id === producto.id)
+    const categoria = categorias.find((cat) =>
+      cat.productos?.some((p) => p.id === producto.id)
     );
-    
-    return categoria?.nombre || 'Sin categoría';
+
+    return categoria?.nombre || "Sin categoría";
   };
 
   const handleEliminarProducto = async (id: number) => {
@@ -130,13 +147,28 @@ export const ProductosAdmin = () => {
       </button>
 
       {isModalOpen && (
-        <ModalAddProducto onClose={cerrarModal} productoEditar={productoEditar ?? undefined} />
+        <ModalAddProducto
+          onClose={cerrarModal}
+          productoEditar={productoEditar ?? undefined}
+        />
       )}
       {isModalTalleOpen && productoIdParaTalle !== null && (
-        <ModalAddTalle onClose={cerrarModalTalle} productoId={productoIdParaTalle} />
+        <ModalAddTalle
+          onClose={cerrarModalTalle}
+          productoId={productoIdParaTalle}
+        />
       )}
       {isModalImagenOpen && productoIdParaImagen !== null && (
-        <ModalAddImagen onClose={cerrarModalImagen} productoId={productoIdParaImagen} />
+        <ModalAddImagen
+          onClose={cerrarModalImagen}
+          productoId={productoIdParaImagen}
+        />
+      )}
+      {isModalVerImagenesOpen && (
+        <ModalVerImagenes
+          imagenes={imagenesProductoSeleccionado}
+          onClose={cerrarModalVerImagenes}
+        />
       )}
 
       <h2 className={styles.title}>Productos</h2>
@@ -162,15 +194,15 @@ export const ProductosAdmin = () => {
                 <select
                   className={styles.selectTalle}
                   value={talleSeleccionado[prod.id] || ""}
-                  onChange={e =>
-                    setTalleSeleccionado(prev => ({
+                  onChange={(e) =>
+                    setTalleSeleccionado((prev) => ({
                       ...prev,
-                      [prod.id]: Number(e.target.value)
+                      [prod.id]: Number(e.target.value),
                     }))
                   }
                 >
                   <option value="">Seleccionar talle</option>
-                  {prod.talles?.map(talle => (
+                  {prod.talles?.map((talle) => (
                     <option key={talle.id} value={talle.id}>
                       {talle.nombre}
                     </option>
@@ -185,20 +217,31 @@ export const ProductosAdmin = () => {
                 </button>
               </td>
               <td className={styles.imageCell}>
-                <FiEye
-                  className={styles.icon}
-                />
-                <button onClick={() => abrirModalImagen(prod.id)} className={styles.addTalleButton}>Agregar imagenes</button>
+                <div className={styles.imageActions}>
+                  <FiEye
+                    className={styles.icon}
+                    onClick={() => abrirModalVerImagenes(prod.imagenes)}
+                  />
+                  <button
+                    onClick={() => abrirModalImagen(prod.id)}
+                    className={styles.addTalleButton}
+                  >
+                    Agregar imagenes
+                  </button>
+                </div>
               </td>
               <td>
                 {(() => {
                   const idTalle = talleSeleccionado[prod.id];
-                  const talle = prod.talles?.find(t => t.id === idTalle);
+                  const talle = prod.talles?.find((t) => t.id === idTalle);
                   return talle ? talle.stock : "-";
                 })()}
               </td>
               <td className={styles.actions}>
-                <FiEdit2 className={styles.icon} onClick={() => abrirModalEditar(prod)} />
+                <FiEdit2
+                  className={styles.icon}
+                  onClick={() => abrirModalEditar(prod)}
+                />
                 <FiTrash2
                   className={styles.icon}
                   onClick={() => handleEliminarProducto(prod.id)}

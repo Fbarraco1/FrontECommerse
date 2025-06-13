@@ -5,7 +5,7 @@ import { typeStore } from "../../../store/typeStore";
 import styles from "./FilterPanel.module.css";
 
 const FilterPanel = () => {
-  const { filtros, setFiltros, aplicarFiltros, coloresDisponibles, marcasDisponibles, rangosDePrecio } = productStore();
+  const { filtros, setFiltros, coloresDisponibles, marcasDisponibles, rangosDePrecio } = productStore();
   const { categoriasFiltradas, fetchCategorias, filtrarCategoriasPorTipo } = categoryStore();
   const { tipos, fetchTipos } = typeStore();
   

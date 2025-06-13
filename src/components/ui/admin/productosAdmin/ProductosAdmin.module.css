@@ -83,3 +83,12 @@ th {
 .addTalleButton:hover {
   background-color: #0056b3;
 }
+
+
+.imageActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 5px; /* Ajusta el espacio entre el icono y el botón */
+  /* margin: 1rem; */
+}

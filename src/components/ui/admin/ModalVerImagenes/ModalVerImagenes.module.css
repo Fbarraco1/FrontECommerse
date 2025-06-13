@@ -1,0 +1,281 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2rem 2.5rem;
+  min-width: 400px;
+  max-width: 95vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 8px 25px rgba(0, 0, 0, 0.15);
+  position: relative;
+  transform: scale(0.95);
+  animation: modalAppear 0.3s ease-out forwards;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Scrollbar personalizada para el modal */
+.modal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+  font-weight: bold;
+}
+
+.closeButton:hover {
+  background: linear-gradient(135deg, #c0392b, #a93226);
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}
+
+.closeButton:active {
+  transform: scale(0.95);
+}
+
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+  justify-items: center;
+}
+
+.imagenContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.imagenContainer:hover {
+  transform: translateY(-5px);
+}
+
+.imagen {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 3px solid #f8f9fa;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.imagen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0) 50%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.imagenContainer:hover .imagen {
+  border-color: #3498db;
+  box-shadow: 
+    0 8px 30px rgba(0, 0, 0, 0.15),
+    0 4px 15px rgba(52, 152, 219, 0.2);
+  transform: scale(1.02);
+}
+
+.imagenContainer:hover .imagen::before {
+  opacity: 1;
+}
+
+.principal {
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  color: #fff;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 
+    0 4px 15px rgba(39, 174, 96, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+.imagenContainer:hover .principal {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 
+    0 6px 20px rgba(39, 174, 96, 0.4),
+    0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalAppear {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsividad mejorada */
+@media (max-width: 768px) {
+  .modal {
+    margin: 1rem;
+    padding: 1.5rem 2rem;
+    min-width: unset;
+    max-width: calc(100vw - 2rem);
+  }
+  
+  .galeria {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .imagen {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .closeButton {
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    padding: 1rem 1.5rem;
+  }
+  
+  .galeria {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+  }
+  
+  .imagen {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .principal {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.8rem;
+  }
+}
+
+/* Estados adicionales */
+.imagenContainer.selected .imagen {
+  border-color: #f39c12;
+  box-shadow: 
+    0 8px 30px rgba(0, 0, 0, 0.15),
+    0 4px 15px rgba(243, 156, 18, 0.3);
+}
+
+.imagenContainer.selected .principal {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+/* Mejoras de accesibilidad */
+.closeButton:focus,
+.imagenContainer:focus {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
+
+
+/* Modo oscuro opcional */
+@media (prefers-color-scheme: dark) {
+  .modal {
+    background: #2c3e50;
+    color: #ecf0f1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .imagen {
+    border-color: #34495e;
+  }
+  
+  .modal::-webkit-scrollbar-track {
+    background: #34495e;
+  }
+  
+  .modal::-webkit-scrollbar-thumb {
+    background: #5d6d7e;
+  }
+}

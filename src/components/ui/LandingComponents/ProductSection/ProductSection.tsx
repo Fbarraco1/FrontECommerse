@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router-dom"; // Cambia a react-router-dom
 import { productStore } from "../../../../store/productStore";
 import { ProductCard } from "../../cards/ProductCard/ProductCard";
 import styles from "./ProductSection.module.css";
@@ -9,8 +9,14 @@ interface ProductSectionProps {
   onViewAll?: () => void;  // función que se ejecuta al hacer click en "Ver Todo"
 }
 
-export const ProductSection = ({ title, productsCount = 4, onViewAll }: ProductSectionProps) => {
+export const ProductSection = ({ title, productsCount = 4 }: ProductSectionProps) => {
   const productos = productStore((state) => state.productos); // <-- leés los productos del store
+  const navigate = useNavigate(); // Nuevo
+
+  const handleViewAll = () => {
+navigate("/productos");
+  };
+
   return (
     <div className={styles.section}>
       <h2 className={styles.title}>{title}</h2>
@@ -24,11 +30,9 @@ export const ProductSection = ({ title, productsCount = 4, onViewAll }: ProductS
 </div>
 
 
-      {onViewAll && (
-        <button className={styles.verTodo} onClick={onViewAll}>
-          Ver Todo
-        </button>
-      )}
+      <button className={styles.verTodo} onClick={handleViewAll}>
+        Ver Todo
+      </button>
     </div>
   );
 };

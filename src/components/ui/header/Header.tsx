@@ -134,19 +134,7 @@ export const Header = () => {
         >
           Sobre Nosotros
         </button>
-        <button
-          className={styles.navItem}
-          onClick={handleNavItemClick}
-          style={{
-            background: 'none',
-            border: 'none',
-            fontFamily: 'inherit',
-            fontSize: 'inherit',
-            padding: 0,
-          }}
-        >
-          Novedades
-        </button>
+      
 
         {/* Menú de administrador - solo visible para admins */}
         <RoleBasedComponent allowedRoles={["ADMIN"]}>
