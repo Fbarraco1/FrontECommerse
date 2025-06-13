@@ -1,15 +1,18 @@
 // PrincipalBanner.tsx
+import { useNavigate } from "react-router-dom"; // Agrega esta línea
 import styles from "./PrincipalBanner.module.css";
 import esmoquin from "../../../../../assets/esmoquin.jpeg"
 
 
 export const PrincipalBanner = () => {
+  const navigate = useNavigate(); // Hook para navegar
+
   return (
     <div className={styles.banner}>
       <div className={styles.texto}>
         <h1>Tu mejor versión empieza con un buen traje.</h1>
         <p>Calle, pero elegante</p>
-        <button>Compra Ahora</button>
+        <button onClick={() => navigate("/productos")}>Compra Ahora</button>
 
         <div className={styles.stats}>
           <div className={styles.stat}>

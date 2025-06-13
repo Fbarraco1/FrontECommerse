@@ -1,5 +1,7 @@
 import styles from './Footer.module.css'
 import { FaGithub, FaInstagram } from 'react-icons/fa'
+import MP from "../../../../public/images/mplogo.png";
+
 
 export const Footer = () => {
   return (
@@ -17,9 +19,8 @@ export const Footer = () => {
         <div className={styles.column}>
           <h3 className={styles.title}>No te pierdas</h3>
           <ul className={styles.list}>
-            <li><a href="#">Sobre Nosotros</a></li>
-            <li><a href="#">Contacto</a></li>
-            <li><a href="#">Novedades</a></li>
+            <li><a href="/sobreNos">Sobre Nosotros</a></li>
+            <li><a href="/productos">Productos</a></li>
           </ul>
         </div>
 
@@ -36,7 +37,7 @@ export const Footer = () => {
         <div className={styles.column}>
           <h3 className={styles.title}>Métodos de Pago</h3>
           <img
-            src="https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.3.2/mercado-pago/logo__large_plus.png"
+            src={MP} 
             alt="Mercado Pago"
             className={styles.paymentLogo}
           />

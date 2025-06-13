@@ -16,6 +16,7 @@ interface CartState {
   removeItem: (id: number) => void;
   increaseQuantity: (id: number) => void;
   decreaseQuantity: (id: number) => void;
+  clearCart: () => void; // ← Agrega esto
 }
 
 const getCartFromLocalStorage = () => {
@@ -61,4 +62,8 @@ export const useCartStore = create<CartState>((set) => ({
       localStorage.setItem("cart", JSON.stringify(updatedItems));
       return { items: updatedItems };
     }),
+  clearCart: () => {
+    localStorage.removeItem("cart");
+    set({ items: [] });
+  }, // ← Implementación
 }));

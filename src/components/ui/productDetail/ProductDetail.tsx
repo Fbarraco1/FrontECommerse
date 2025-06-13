@@ -6,8 +6,6 @@ import { IProduct } from "../../../types/IProduct";
 import { getProductoPorId } from "../../../http/product";
 
 export const ProductDetail = () => {
-
-
   const { id } = useParams();
   const { addItem } = useCartStore();
 
@@ -17,40 +15,40 @@ export const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState(""); // Se mantiene la selección de talle
   const [quantity, setQuantity] = useState(1);
 
- useEffect(() => {
-  const fetchProduct = async () => {
-    try {
-      const data = await getProductoPorId(id!);
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const data = await getProductoPorId(id!);
 
-      if (!data) {
-        console.error("No se encontró el producto");
-        return;
+        if (!data) {
+          console.error("No se encontró el producto");
+          return;
+        }
+
+        setProduct(data);
+        console.log("Producto cargado:", data);
+
+        // Imagen principal o la primera disponible
+        const principal = data.imagenes.find((img) => img.esPrincipal);
+        setSelectedImage(principal ? principal.url : data.imagenes[0]?.url || "");
+      } catch (error) {
+        console.error("Error al cargar el producto:", error);
+      } finally {
+        setLoading(false);
       }
+    };
 
-      setProduct(data);
-console.log("Producto cargado:", data);
-
-      // Imagen principal o la primera disponible
-      const principal = data.imagenes.find((img) => img.esPrincipal);
-      setSelectedImage(principal ? principal.url : data.imagenes[0]?.url || "");
-    } catch (error) {
-      console.error("Error al cargar el producto:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  fetchProduct();
-}, [id]);
+    fetchProduct();
+  }, [id]);
 
   if (loading) return <p>Cargando producto...</p>;
   if (!product) return <p>Producto no encontrado</p>;
 
   const handleAddToCart = () => {
-      if (!selectedSize) {
-    alert("Por favor selecciona un talle antes de agregar al carrito.");
-    return;
-  }
+    if (!selectedSize) {
+      alert("Por favor selecciona un talle antes de agregar al carrito.");
+      return;
+    }
     addItem({
       id: product.id,
       name: product.nombre,
@@ -59,7 +57,7 @@ console.log("Producto cargado:", data);
       imageUrl: selectedImage,
       size: selectedSize,
       color: product.color, // Se obtiene directamente del producto
-    }); 
+    });
   };
 
   return (
@@ -89,8 +87,8 @@ console.log("Producto cargado:", data);
         <h1 className={styles.title}>{product.nombre}</h1>
         <p className={styles.brand}>Marca: {product.marca}</p>
         <p className={styles.category}>
-  Categoría: {product.categoria?.nombre ?? "Sin categoría"}
-</p>
+          Categoría: {product.categoria?.nombre ?? "Sin categoría"}
+        </p>
         <p className={styles.color}>Color: {product.color}</p>
         <p className={styles.price}>${product.precio.toLocaleString()}</p>
         <p className={styles.description}>{product.descripcion}</p>
@@ -99,15 +97,17 @@ console.log("Producto cargado:", data);
         <div className={styles.section}>
           <span>Seleccionar Talle:</span>
           <div className={styles.sizes}>
-            {["S", "M", "L", "XL"].map((size) => (
+            {product.talles.map((talle) => (
               <button
-                key={size}
+                key={talle.id}
                 className={`${styles.sizeButton} ${
-                  selectedSize === size ? styles.activeSize : ""
+                  selectedSize === talle.nombre ? styles.activeSize : ""
                 }`}
-                onClick={() => setSelectedSize(size)}
+                onClick={() => setSelectedSize(talle.nombre)}
+                disabled={talle.stock <= 0}
+                title={talle.stock <= 0 ? "Sin stock" : ""}
               >
-                {size}
+                {talle.nombre} {talle.stock <= 0 && "(Sin stock)"}
               </button>
             ))}
           </div>

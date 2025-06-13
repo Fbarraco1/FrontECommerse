@@ -13,11 +13,13 @@ import RequireAuth from "../router/RequireAuth";
 import { PaymentSuccess } from "../components/ui/PaymentStatus/PaymentSuccess"; 
 import { PaymentPending } from "../components/ui/PaymentStatus/PaymentPending";
 import { PaymentFailure } from "../components/ui/PaymentStatus/PaymentFailure"; 
+import ScrollToTop from "../utils/ScrollToTop";
 
 
 const AppRouter = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <AuthProvider>
         <Routes>
           {/* ===== RUTAS PÚBLICAS ===== */}

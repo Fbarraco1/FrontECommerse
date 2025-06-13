@@ -42,8 +42,8 @@
   padding: 7px 18px;
   border-radius: 25px;
   border: 2px solid transparent;
-  background: #000000;
-  color: #ffffff;
+  background: #f5f5f5;         /* Fondo más claro por defecto */
+  color: #111111;              /* Texto negro */
   font-size: 0.95rem;
   outline: none;
   width: 100%;
@@ -51,11 +51,20 @@
 }
 
 .input:focus {
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3);
+  background: #fff;            /* Fondo blanco al enfocar */
+  color: #111111;              /* Texto negro */
+  border-color: #007bff;       /* Borde azul al enfocar */
+  box-shadow: 0 0 0 2px #b3d7ff;
+}
+
+.input:not(:placeholder-shown) {
+  background: #fff;            /* Fondo blanco si tiene texto */
+  color: #111111;              /* Texto negro */
 }
 
 .input::placeholder {
   color: #aaa;
+  opacity: 1;
 }
 
 /* Estilos específicos para el input tipo date */

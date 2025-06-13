@@ -140,12 +140,29 @@ export const ProductosAdmin = () => {
     }
   };
 
+  // Estado para la búsqueda
+  const [busqueda, setBusqueda] = useState("");
+
+  // Filtrar productos según la búsqueda
+  const productosFiltrados = productos.filter((prod) =>
+    prod.nombre.toLowerCase().includes(busqueda.toLowerCase())
+  );
+
   return (
     <div className={styles.container}>
-      <button className={styles.addButton} onClick={abrirModal}>
-        Agregar producto
-      </button>
-
+      {/* Barra superior con botón y búsqueda */}
+      <div className={styles.topBar}>
+        <button className={styles.addButton} onClick={abrirModal}>
+          Agregar producto
+        </button>
+        <input
+          type="text"
+          placeholder="Buscar producto..."
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+          className={styles.searchBar}
+        />
+      </div>
       {isModalOpen && (
         <ModalAddProducto
           onClose={cerrarModal}
@@ -185,7 +202,7 @@ export const ProductosAdmin = () => {
           </tr>
         </thead>
         <tbody>
-          {productos.map((prod) => (
+          {productosFiltrados.map((prod) => (
             <tr key={prod.id}>
               <td>{prod.nombre}</td>
               <td>{getNombreCategoria(prod)}</td>

@@ -78,3 +78,31 @@ th {
 .addCategoriaButton:hover {
   background-color: #0056b3;
 }
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Cambiado para centrar */
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.searchBar {
+  width: 100%;
+  max-width: 350px;
+  margin: 0;
+  padding: 10px 16px;
+  border: 1.5px solid #bdbdbd;
+  border-radius: 24px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  background-color: #fafafa;
+  display: block;
+}
+
+.searchBar:focus {
+  border-color: #007bff;
+  box-shadow: 0 2px 12px rgba(0,123,255,0.08);
+}

@@ -60,11 +60,29 @@ export const TiposAdmin = () => {
         setIsModalOpen(true);
     };
 
+    // Estado para la búsqueda
+    const [busqueda, setBusqueda] = useState("");
+
+    // Filtrar tipos según la búsqueda
+    const tiposFiltrados = tipos.filter((tip) =>
+        tip.nombre.toLowerCase().includes(busqueda.toLowerCase())
+    );
+
     return (
         <div className={styles.container}>
-            <button className={styles.addButton} onClick={abrirModal}>
-                Agregar Tipos
-            </button>
+            {/* Contenedor flex para botón y búsqueda */}
+            <div className={styles.topBar}>
+                <button className={styles.addButton} onClick={abrirModal}>
+                    Agregar Tipos
+                </button>
+                <input
+                    type="text"
+                    placeholder="Buscar tipo..."
+                    value={busqueda}
+                    onChange={(e) => setBusqueda(e.target.value)}
+                    className={styles.searchBar}
+                />
+            </div>
             {isModalOpen && (
                 <ModalAddTipos onClose={cerrarModal} tipoEditar={tipoEditar} />
             )}
@@ -89,7 +107,7 @@ export const TiposAdmin = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {tipos.map((tip) => (
+                    {tiposFiltrados.map((tip) => (
                         <tr key={tip.id}>
                             <td>{tip.nombre}</td>
                             <td>
