@@ -2,34 +2,68 @@ import { useEffect, useState } from "react";
 import { categoryStore } from '../../../../store/categoryStore';
 import styles from './ModalAddCategoria.module.css';
 import { typeStore } from "../../../../store/typeStore";
+import Swal from "sweetalert2";
+import * as yup from "yup"; // Importa yup
+
 interface ModalAddCategoriaProps {
   onClose: () => void;
 }
 
+// Esquema de validación con yup
+const schema = yup.object().shape({
+  nombre: yup.string().required("El nombre de la categoría es obligatorio"),
+  tipoSeleccionado: yup.string().required("El tipo es obligatorio"),
+});
+
 export const ModalAddCategoria = ({ onClose }: ModalAddCategoriaProps) => {
   const crearCategoria = categoryStore((state) => state.crearCategoria);
-  const tipos = typeStore((state) => state.tipos); // <-- obtener tipos del store
+  const tipos = typeStore((state) => state.tipos);
   const fetchTipos = typeStore((state) => state.fetchTipos);
 
   const [nombre, setNombre] = useState("");
-  const [tipoSeleccionado, setTipoSeleccionado] = useState(""); // <-- estado para el tipo
+  const [tipoSeleccionado, setTipoSeleccionado] = useState("");
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
     fetchTipos();
   }, [fetchTipos]);
 
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    // Validar con yup
     try {
-      if (!nombre.trim() || !tipoSeleccionado) return;
-      await crearCategoria({ nombre, tipo: {id: Number(tipoSeleccionado) ,nombre:(tipoSeleccionado)}}); // <-- enviar tipoId
-      onClose();
-    } catch (error) {
-      console.error("Error al crear la categoría:", error);
-      alert("Error al crear la categoría. Por favor, inténtelo de nuevo.");
+      await schema.validate(
+        { nombre, tipoSeleccionado },
+        { abortEarly: false }
+      );
+      setErrors({});
+    } catch (validationError: any) {
+      const newErrors: { [key: string]: string } = {};
+      validationError.inner.forEach((err: any) => {
+        if (err.path) newErrors[err.path] = err.message;
+      });
+      setErrors(newErrors);
+      return;
     }
 
+    try {
+      await crearCategoria({ nombre, tipo: { id: Number(tipoSeleccionado), nombre: tipoSeleccionado } });
+      Swal.fire({
+        title: "Categoría agregada",
+        text: "La categoría se agregó correctamente.",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      onClose();
+    } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: "Hubo un problema al crear la categoría.",
+        icon: "error",
+      });
+    }
   };
 
   return (
@@ -47,6 +81,7 @@ export const ModalAddCategoria = ({ onClose }: ModalAddCategoriaProps) => {
               onChange={(e) => setNombre(e.target.value)}
               required
             />
+            {errors.nombre && <span className={styles.error}>{errors.nombre}</span>}
           </div>
           <div>
             <label htmlFor="tipo">Tipo</label>
@@ -64,6 +99,7 @@ export const ModalAddCategoria = ({ onClose }: ModalAddCategoriaProps) => {
                 </option>
               ))}
             </select>
+            {errors.tipoSeleccionado && <span className={styles.error}>{errors.tipoSeleccionado}</span>}
           </div>
           <div className={styles.buttons}>
             <button type="submit">Agregar</button>

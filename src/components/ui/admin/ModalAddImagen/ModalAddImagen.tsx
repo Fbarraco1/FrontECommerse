@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { subirImagenProducto } from "../../../../http/image";
-import styles from "./ModalAddImagen.module.css"; // Crea este archivo para estilos o usa uno existente
+import styles from "./ModalAddImagen.module.css";
+import Swal from "sweetalert2"; // Importa SweetAlert2
 
 interface ModalAddImagenProps {
   onClose: () => void;
@@ -22,16 +23,30 @@ export const ModalAddImagen: React.FC<ModalAddImagenProps> = ({ onClose, product
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!file) {
-      alert("Selecciona una imagen.");
+      Swal.fire({
+        title: "Selecciona una imagen",
+        text: "Debes seleccionar una imagen para subir.",
+        icon: "warning",
+      });
       return;
     }
     setLoading(true);
     try {
       await subirImagenProducto(file, productoId, esPrincipal, orden);
-      alert("Imagen subida correctamente");
+      await Swal.fire({
+        title: "Imagen subida",
+        text: "La imagen se subió correctamente.",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
       onClose();
     } catch (error) {
-      alert("Error al subir la imagen");
+      Swal.fire({
+        title: "Error",
+        text: "Error al subir la imagen.",
+        icon: "error",
+      });
     } finally {
       setLoading(false);
     }
