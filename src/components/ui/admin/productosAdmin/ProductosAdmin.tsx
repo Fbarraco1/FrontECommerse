@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FiEdit2, FiTrash2 } from "react-icons/fi";
+import { FiEdit2, FiEye, FiTrash2 } from "react-icons/fi";
 import styles from './ProductosAdmin.module.css';
 import { productStore } from "../../../../store/productStore";
 import { categoryStore } from "../../../../store/categoryStore";
@@ -7,6 +7,7 @@ import { getAllProductosAdmin, eliminarProductoPorID } from "../../../../http/pr
 import { IProduct } from "../../../../types/IProduct"; 
 import { ModalAddProducto } from "../ModalAddProducto/ModalAddProducto";
 import { ModalAddTalle } from "../ModalAddTalle/ModalAddTalle";
+import { ModalAddImagen } from "../ModalAddImagen/ModalAddImagen";
 
 
 export const ProductosAdmin = () => {
@@ -64,6 +65,22 @@ export const ProductosAdmin = () => {
     }
   };
 
+  // Estado para el modal de imagen y el producto seleccionado
+  const [isModalImagenOpen, setIsModalImagenOpen] = useState(false);
+  const [productoIdParaImagen, setProductoIdParaImagen] = useState<number | null>(null);
+
+  const abrirModalImagen = (productoId: number) => {
+    setProductoIdParaImagen(productoId);
+    setIsModalImagenOpen(true);
+  };
+  const cerrarModalImagen = () => {
+    setIsModalImagenOpen(false);
+    setProductoIdParaImagen(null);
+    // Si quieres recargar productos tras agregar imagen, puedes hacerlo aquí
+    // const productosData = await getAllProductosAdmin();
+    // if (productosData) setArrayProductos(productosData);
+  };
+
 
   useEffect(() => {
     const cargarDatos = async () => {
@@ -118,6 +135,9 @@ export const ProductosAdmin = () => {
       {isModalTalleOpen && productoIdParaTalle !== null && (
         <ModalAddTalle onClose={cerrarModalTalle} productoId={productoIdParaTalle} />
       )}
+      {isModalImagenOpen && productoIdParaImagen !== null && (
+        <ModalAddImagen onClose={cerrarModalImagen} productoId={productoIdParaImagen} />
+      )}
 
       <h2 className={styles.title}>Productos</h2>
       <table className={styles.table}>
@@ -164,8 +184,11 @@ export const ProductosAdmin = () => {
                   + Agregar Talle
                 </button>
               </td>
-              <td>
-                {/* Aquí puedes mostrar la imagen principal si quieres */}
+              <td className={styles.imageCell}>
+                <FiEye
+                  className={styles.icon}
+                />
+                <button onClick={() => abrirModalImagen(prod.id)} className={styles.addTalleButton}>Agregar imagenes</button>
               </td>
               <td>
                 {(() => {
