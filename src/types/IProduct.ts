@@ -1,4 +1,5 @@
 import { ICategory } from "./ICategory";
+import { ITalle } from "./ITalle";
 
 // types/IProduct.ts
 export interface IProduct {
@@ -11,6 +12,7 @@ export interface IProduct {
   marca: string;
   imagenes: ImagenProducto[];
   categoria: ICategory;
+  talles: ITalle[];
 }
 
 export interface ImagenProducto {
