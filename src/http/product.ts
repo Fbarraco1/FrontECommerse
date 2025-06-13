@@ -53,9 +53,9 @@ export const getProductoPorId = async (id: string | number): Promise<IProduct | 
      }
  };
 
- export const eliminarProductoPorID = async (idProducto: string | number) => {
+ export const eliminarProductoPorID = async (idProducto: number) => {
      try {
-         const response = await axios.delete<IProduct>(`${API_URL}/${idProducto}`);
+         const response = await axios.delete<IProduct>(`${API_URL}/productos/${idProducto}`);
          return response.data;
      } catch (error) {
          console.error("Error eliminando producto:", error);

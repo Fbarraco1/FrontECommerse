@@ -5,6 +5,8 @@ import { ModalAddCategoria } from "../ModalAddCategoria/ModalAddCategoria"; // I
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import { typeStore } from "../../../../store/typeStore";
 import { categoryStore } from "../../../../store/categoryStore";
+import { eliminarTipoPorID } from "../../../../http/type";
+import { IType } from "../../../../types/IType"; // Asegúrate de importar el tipo
 
 export const TiposAdmin = () => {
     const tipos = typeStore((state) => state.tipos); 
@@ -14,8 +16,15 @@ export const TiposAdmin = () => {
     const fetchCategorias = categoryStore((state) => state.fetchCategorias);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const abrirModal = () => setIsModalOpen(true);
-    const cerrarModal = () => setIsModalOpen(false);
+    const abrirModal = () => {
+        setTipoEditar(null); // Para agregar
+        setIsModalOpen(true);
+    };
+
+    const cerrarModal = () => {
+        setIsModalOpen(false);
+        setTipoEditar(null);
+    };
 
     // Estado para el modal de categoría
     const [isModalCategoriaOpen, setIsModalCategoriaOpen] = useState(false);
@@ -37,12 +46,28 @@ export const TiposAdmin = () => {
         return cats;
     };
 
+    const handleEliminarTipo = async (id: number) => {
+        if (window.confirm("¿Seguro que deseas eliminar este tipo?")) {
+            await eliminarTipoPorID(id);
+            await fetchTipos(); // Recarga la lista de tipos
+        }
+    };
+
+    const [tipoEditar, setTipoEditar] = useState<IType | null>(null);
+
+    const abrirModalEditar = (tipo: IType) => {
+        setTipoEditar(tipo); // Para editar
+        setIsModalOpen(true);
+    };
+
     return (
         <div className={styles.container}>
             <button className={styles.addButton} onClick={abrirModal}>
                 Agregar Tipos
             </button>
-            {isModalOpen && <ModalAddTipos onClose={cerrarModal} />}
+            {isModalOpen && (
+                <ModalAddTipos onClose={cerrarModal} tipoEditar={tipoEditar} />
+            )}
             {isModalCategoriaOpen && <ModalAddCategoria onClose={cerrarModalCategoria} />}
 
             <h2 className={styles.title}>Tipos</h2>
@@ -53,7 +78,7 @@ export const TiposAdmin = () => {
                         <th>
                             Categorias 
                             <button 
-                                className={styles.addButtonCategory} 
+                                className={styles.addCategoriaButton} 
                                 type="button"
                                 onClick={abrirModalCategoria}
                             >
@@ -77,8 +102,14 @@ export const TiposAdmin = () => {
                                 </select>
                             </td>
                             <td className={styles.actions}>
-                                <FiEdit2 className={styles.icon} />
-                                <FiTrash2 className={styles.icon} />
+                                <FiEdit2
+                                    className={styles.icon}
+                                    onClick={() => abrirModalEditar(tip)}
+                                />
+                                <FiTrash2
+                                    className={styles.icon}
+                                    onClick={() => handleEliminarTipo(tip.id)}
+                                />
                             </td>
                         </tr>
                     ))}

@@ -3,7 +3,7 @@ import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import styles from './ProductosAdmin.module.css';
 import { productStore } from "../../../../store/productStore";
 import { categoryStore } from "../../../../store/categoryStore";
-import { getAllProductosAdmin } from "../../../../http/product";
+import { getAllProductosAdmin, eliminarProductoPorID } from "../../../../http/product";
 import { IProduct } from "../../../../types/IProduct"; 
 import { ModalAddProducto } from "../ModalAddProducto/ModalAddProducto";
 import { ModalAddTalle } from "../ModalAddTalle/ModalAddTalle";
@@ -95,6 +95,16 @@ export const ProductosAdmin = () => {
     return categoria?.nombre || 'Sin categoría';
   };
 
+  const handleEliminarProducto = async (id: number) => {
+    if (window.confirm("¿Seguro que deseas eliminar este producto?")) {
+      await eliminarProductoPorID(id);
+      // Recargar productos después de eliminar
+      const productosData = await getAllProductosAdmin();
+      if (productosData) {
+        setArrayProductos(productosData);
+      }
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -166,7 +176,10 @@ export const ProductosAdmin = () => {
               </td>
               <td className={styles.actions}>
                 <FiEdit2 className={styles.icon} onClick={() => abrirModalEditar(prod)} />
-                <FiTrash2 className={styles.icon} />
+                <FiTrash2
+                  className={styles.icon}
+                  onClick={() => handleEliminarProducto(prod.id)}
+                />
               </td>
             </tr>
           ))}

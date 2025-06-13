@@ -158,7 +158,7 @@ export const ModalAddProducto = ({ onClose, productoEditar }: ModalAddProductoPr
                 </div>
                 
                 <div className={styles.buttons}>
-                    <button type="submit" className={styles.addBtn}>Agregar</button>
+                    <button type="submit" className={styles.addBtn}>{productoEditar ? "Actualizar" : "Agregar"}</button>
                     <button type="button" className={styles.cancelBtn} onClick={onClose}>
                         Cancelar
                     </button>
