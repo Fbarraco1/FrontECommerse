@@ -44,7 +44,7 @@ export const getProductoPorId = async (id: string | number): Promise<IProduct | 
 
  export const editarProducto = async (productoActualizado: IProduct) => {
      try {
-         const response = await axios.put<IProduct>(`${API_URL}/${productoActualizado.id}`, {
+         const response = await axios.put<IProduct>(`${API_URL}/productos/${productoActualizado.id}`, {
              ...productoActualizado,
          });
          return response.data;

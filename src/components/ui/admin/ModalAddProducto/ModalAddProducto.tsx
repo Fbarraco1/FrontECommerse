@@ -4,20 +4,23 @@ import { productStore } from "../../../../store/productStore";
 import { postNuevoProducto } from "../../../../http/product";
 import { categoryStore } from "../../../../store/categoryStore";
 import { INuevoProducto } from "../../../../types/INuevoProducto";
+import { IProduct } from "../../../../types/IProduct";
+import { editarProducto } from "../../../../http/product";
 
 interface ModalAddProductoProps {
   onClose: () => void;
+  productoEditar?: IProduct;
 }
 
-export const ModalAddProducto = ({ onClose }: ModalAddProductoProps) => {
-  const [nombre, setNombre] = useState("");
-  const [categoria, setCategoria] = useState("");
-  const [precio, setPrecio] = useState("");
-  const [marca, setMarca] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [color, setColor] = useState("");
-  const [imagenes] = useState([]);
-  const [talles] = useState([])
+export const ModalAddProducto = ({ onClose, productoEditar }: ModalAddProductoProps) => {
+  const [nombre, setNombre] = useState(productoEditar?.nombre || "");
+  const [categoria, setCategoria] = useState(productoEditar?.categoria?.id?.toString() || "");
+  const [precio, setPrecio] = useState(productoEditar?.precio?.toString() || "");
+  const [marca, setMarca] = useState(productoEditar?.marca || "");
+  const [descripcion, setDescripcion] = useState(productoEditar?.descripcion || "");
+  const [color, setColor] = useState(productoEditar?.color || "");
+  const [imagenes] = useState(productoEditar?.imagenes || []);
+  const [talles] = useState(productoEditar?.talles || [])
 
   const categorias = categoryStore((state) => state.categorias);
 
@@ -49,20 +52,37 @@ export const ModalAddProducto = ({ onClose }: ModalAddProductoProps) => {
     };
 
     try {
-      const productoCreado = await postNuevoProducto(nuevoProducto);
-      if (productoCreado) {
-        agregarNuevoProducto(productoCreado);
-        onClose();
+      if (productoEditar) {
+        // Construye el objeto IProduct para editar
+        const productoActualizado: IProduct = {
+          ...productoEditar, // incluye id y campos que no cambian
+          nombre,
+          categoria: categoriaSeleccionada,
+          precio: Number(precio),
+          marca,
+          descripcion,
+          color,
+          imagenes,
+          talles
+        };
+        await editarProducto(productoActualizado);
+      } else {
+        // Lógica de creación
+        const productoCreado = await postNuevoProducto(nuevoProducto);
+        if (productoCreado) {
+          agregarNuevoProducto(productoCreado);
+        }
       }
+      onClose();
     } catch (error) {
-      alert("Error al crear el producto");
+      alert("Error al guardar el producto");
     }
   };
 
   return (
     <div className={styles.overlay}>
         <div className={styles.container}>
-            <h2>Agregar Producto</h2>
+            <h2>{productoEditar ? "Editar Producto" : "Agregar Producto"}</h2>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="nombre">Nombre producto</label>

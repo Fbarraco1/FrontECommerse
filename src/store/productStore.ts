@@ -30,7 +30,7 @@ interface IProductStore {
   // Nuevos métodos que faltaban en la interfaz
   agregarNuevoProducto: (nuevoProducto: IProduct) => void;
   editarUnProducto: (productoEditado: IProduct) => void;
-  eeliminarUnProducto: (idProducto: number) => void;
+  eliminarUnProducto: (idProducto: number) => void;
 }
 
 export const productStore = create<IProductStore>((set, get) => ({
@@ -171,7 +171,7 @@ export const productStore = create<IProductStore>((set, get) => ({
       return { productos: arregloProductos };
     }),
 
-  eeliminarUnProducto: (idProducto: number) =>
+  eliminarUnProducto: (idProducto: number) =>
     set((state) => {
       const arregloProductos = state.productos.filter((producto) => producto.id !== idProducto);
       return { productos: arregloProductos };

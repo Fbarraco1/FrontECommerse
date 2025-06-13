@@ -1,8 +1,8 @@
-import { IProduct } from "./IProduct";
 
-export interface ITalle {
-  id: number;
+export interface INuevoTalle {
   nombre: string;
   stock: number;
-  producto: IProduct
+  producto: {
+    id: number;
+  };
 }

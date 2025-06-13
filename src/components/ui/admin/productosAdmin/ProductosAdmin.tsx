@@ -6,6 +6,7 @@ import { categoryStore } from "../../../../store/categoryStore";
 import { getAllProductosAdmin } from "../../../../http/product";
 import { IProduct } from "../../../../types/IProduct"; 
 import { ModalAddProducto } from "../ModalAddProducto/ModalAddProducto";
+import { ModalAddTalle } from "../ModalAddTalle/ModalAddTalle";
 
 
 export const ProductosAdmin = () => {
@@ -19,14 +20,49 @@ export const ProductosAdmin = () => {
 
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const abrirModal = () => setIsModalOpen(true);
-  const cerrarModal = async  () => {
+  const [productoEditar, setProductoEditar] = useState<IProduct | null>(null);
+
+  const abrirModal = () => {
+    setProductoEditar(null); // Para agregar
+    setIsModalOpen(true);
+  };
+
+  const abrirModalEditar = (producto: IProduct) => {
+    setProductoEditar(producto); // Para editar
+    setIsModalOpen(true);
+  };
+
+  const cerrarModal = async () => {
     setIsModalOpen(false);
-    await fetchCategorias(); 
+    setProductoEditar(null);
+    await fetchCategorias();
+    // Recarga productos si es necesario
+    const productosData = await getAllProductosAdmin();
+    if (productosData) {
+      setArrayProductos(productosData);
+    }
   }
 
   // Estado para el talle seleccionado por producto
   const [talleSeleccionado, setTalleSeleccionado] = useState<{ [key: number]: number }>({});
+
+  // Estado para el modal de talle y el producto seleccionado
+  const [isModalTalleOpen, setIsModalTalleOpen] = useState(false);
+  const [productoIdParaTalle, setProductoIdParaTalle] = useState<number | null>(null);
+
+  const abrirModalTalle = (productoId: number) => {
+    setProductoIdParaTalle(productoId);
+    setIsModalTalleOpen(true);
+  };
+  const cerrarModalTalle = async () => {
+    setIsModalTalleOpen(false);
+    setProductoIdParaTalle(null);
+    // Recargar productos para actualizar talles
+    const productosData = await getAllProductosAdmin();
+    if (productosData) {
+      setArrayProductos(productosData);
+    }
+  };
 
 
   useEffect(() => {
@@ -62,11 +98,16 @@ export const ProductosAdmin = () => {
 
   return (
     <div className={styles.container}>
-       <button className={styles.addButton} onClick={abrirModal}>
+      <button className={styles.addButton} onClick={abrirModal}>
         Agregar producto
       </button>
 
-      {isModalOpen && <ModalAddProducto onClose={cerrarModal} />}
+      {isModalOpen && (
+        <ModalAddProducto onClose={cerrarModal} productoEditar={productoEditar ?? undefined} />
+      )}
+      {isModalTalleOpen && productoIdParaTalle !== null && (
+        <ModalAddTalle onClose={cerrarModalTalle} productoId={productoIdParaTalle} />
+      )}
 
       <h2 className={styles.title}>Productos</h2>
       <table className={styles.table}>
@@ -87,8 +128,9 @@ export const ProductosAdmin = () => {
               <td>{prod.nombre}</td>
               <td>{getNombreCategoria(prod)}</td>
               <td>$ {prod.precio}</td>
-              <td>
+              <td className={styles.talleCell}>
                 <select
+                  className={styles.selectTalle}
                   value={talleSeleccionado[prod.id] || ""}
                   onChange={e =>
                     setTalleSeleccionado(prev => ({
@@ -104,6 +146,13 @@ export const ProductosAdmin = () => {
                     </option>
                   ))}
                 </select>
+                <button
+                  className={styles.addTalleButton}
+                  type="button"
+                  onClick={() => abrirModalTalle(prod.id)}
+                >
+                  + Agregar Talle
+                </button>
               </td>
               <td>
                 {/* Aquí puedes mostrar la imagen principal si quieres */}
@@ -116,7 +165,7 @@ export const ProductosAdmin = () => {
                 })()}
               </td>
               <td className={styles.actions}>
-                <FiEdit2 className={styles.icon} />
+                <FiEdit2 className={styles.icon} onClick={() => abrirModalEditar(prod)} />
                 <FiTrash2 className={styles.icon} />
               </td>
             </tr>

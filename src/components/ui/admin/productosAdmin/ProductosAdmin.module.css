@@ -53,3 +53,33 @@ th {
 .icon {
   cursor: pointer;
 }
+
+.talleCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+}
+
+.selectTalle {
+  margin: 0 auto;
+  flex: 1;
+  max-width: 140px;
+}
+
+.addTalleButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: auto;
+  transition: background-color 0.2s;
+}
+
+.addTalleButton:hover {
+  background-color: #0056b3;
+}
