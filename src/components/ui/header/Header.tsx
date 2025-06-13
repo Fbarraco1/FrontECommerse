@@ -5,9 +5,13 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useCartStore } from '../../../store/cartStore'
 import { useAuth } from '../../../context/AuthContext'
 import { RoleBasedComponent, useRole } from '../RoleBased/RoleBasedComponent'
+import { productStore } from '../../../store/productStore'
 
 export const Header = () => {
-  const [showCategories, setShowCategories] = useState(false)
+
+  const [searchText, setSearchText] = useState("");
+  const setFiltros = productStore((state) => state.setFiltros);
+
   const [menuOpen, setMenuOpen] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false) // Para el menú desplegable del usuario
 
@@ -18,7 +22,7 @@ export const Header = () => {
 
   // Hooks de autenticación y roles
   const { user, isAuthenticated, logout } = useAuth()
-  const { isAdmin, isUser } = useRole()
+  const { isAdmin } = useRole()
 
   const handleLoginClick = () => {
     if (isAuthenticated) {
@@ -42,6 +46,20 @@ export const Header = () => {
     setShowUserMenu(false)
     navigate('/admin/productos')
   }
+
+   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(event.target.value);
+  };
+
+  const handleSearchSubmit = () => {
+    if (searchText.trim() !== "") {
+      setFiltros({ nombre: searchText }); // Aplica el filtro en el store
+      navigate("/productos"); // Redirige a ProductPage
+    }
+  };
+
+
+
 
   // Para cerrar menú al seleccionar una opción
   const handleNavItemClick = () => {
@@ -153,10 +171,22 @@ export const Header = () => {
       </nav>
 
       {/* Buscador */}
-      <div className={styles.searchContainer}>
-        <FiSearch className={styles.searchIcon} />
-        <input type="text" placeholder="Buscar producto..." className={styles.searchInput} />
-      </div>
+   <div className={styles.searchContainer}>
+      <FiSearch className={styles.searchIcon} onClick={handleSearchSubmit} />
+      <input
+        type="text"
+        placeholder="Buscar producto..."
+        className={styles.searchInput}
+        value={searchText}
+        onChange={handleSearchChange}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            handleSearchSubmit();
+          }
+        }}
+      />
+    </div>
+
 
       {/* Íconos de acciones */}
       <div className={styles.icons}>

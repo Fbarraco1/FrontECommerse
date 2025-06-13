@@ -73,3 +73,15 @@ export const productosFiltrados = async (queryParams: string) => {
     return [];
   }
 };
+
+export const productosFiltradosPorNombre = async (nombre: string) => {
+  try {
+    console.log("📡 URL enviada al backend:", `${API_URL}/productos/filtrar/nombre?nombre=${nombre}`);
+    const response = await axios.get(`${API_URL}/productos/filtrar/nombre?nombre=${nombre}`);
+    console.log("📦 Respuesta del backend:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("💥 Error al obtener productos filtrados por nombre:", error);
+    return [];
+  }
+};

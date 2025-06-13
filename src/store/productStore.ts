@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { IProduct } from "../types/IProduct";
-import { productosFiltrados} from "../http/product";
+import { productosFiltrados, productosFiltradosPorNombre} from "../http/product";
 
 interface IFilters {
   tipo?: number;
@@ -9,6 +9,8 @@ interface IFilters {
   marca?: string;
   precioMin?: number;
   precioMax?: number;
+  nombre?: string;
+
 }
 
 interface IProductStore {
@@ -46,6 +48,12 @@ export const productStore = create<IProductStore>((set, get) => ({
     }));
   },
 
+  filtrarPorNombre: async (nombre: string) => {
+    console.log("🔍 Filtrando por nombre:", nombre);
+    const productos = await productosFiltradosPorNombre(nombre);
+    set({ productos });
+  },
+
   aplicarFiltros: async () => {
   const filtros = get().filtros;
   const queryParams = new URLSearchParams();
@@ -59,6 +67,14 @@ export const productStore = create<IProductStore>((set, get) => ({
     precioMin: 'precioMin',   // igual
     precioMax: 'precioMax'    // igual
   };
+
+  if (filtros.nombre) {
+    // ✅ Si hay un filtro por nombre, usar el nuevo endpoint
+    console.log("🔍 Filtrando por nombre:", filtros.nombre);
+    const productos = await productosFiltradosPorNombre(filtros.nombre);
+    set({ productos });
+    return;
+  }
 
   Object.entries(filtros).forEach(([key, value]) => {
     if (value !== undefined && value !== "") {
