@@ -1,69 +1,69 @@
 .container {
   display: flex;
   height: 100vh;
-  background: linear-gradient(to right, #ffffff 50%, #111111 50%);
+  flex-direction: row;
+  background-color: #111;
 }
 
+/* LADO IZQUIERDO: oscuro */
 .left {
   flex: 1;
+  background-color: #111;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(243, 241, 241, 0.612);
+  padding: 2rem;
 }
 
 .logo {
   width: 80%;
   max-width: 400px;
+  filter: brightness(1.2);
 }
 
+/* LADO DERECHO: claro, contiene el formulario */
 .right {
   flex: 1;
+  background-color: #f2f4f8;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #111;
+  padding: 2rem;
 }
 
-/* Tablet: max-width 1024px */
+/* Tablet: apilado vertical */
 @media (min-width: 601px) and (max-width: 1024px) {
   .container {
-    height: auto;
-    min-height: 100vh;
     flex-direction: column;
-    background: linear-gradient(to bottom, #ffffff 50%, #111111 50%);
   }
-  .left, .right {
-    flex: none;
+
+  .left,
+  .right {
     width: 100%;
-    min-height: 50vh;
+    height: 50vh;
   }
+
   .logo {
     max-width: 320px;
-    width: 70%;
   }
 }
 
-/* Mobile: max-width 600px */
+/* Mobile */
 @media (max-width: 600px) {
   .container {
     flex-direction: column;
     height: auto;
-    min-height: 100vh;
-    background: #fff;
   }
-  .left, .right {
-    flex: none;
+
+  .left,
+  .right {
     width: 100%;
-    min-height: unset;
-    padding: 2.5rem 0 1.5rem 0;
+    padding: 2rem 1rem;
+    height: auto;
   }
+
   .logo {
     max-width: 220px;
     width: 90%;
-  }
-  .right {
-    background-color: #111;
-    padding: 2rem 0 2.5rem 0;
   }
 }

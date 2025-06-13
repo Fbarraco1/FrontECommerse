@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { productStore } from "../../../store/productStore";
 import { categoryStore } from "../../../store/categoryStore";
 import { typeStore } from "../../../store/typeStore";
@@ -8,8 +8,9 @@ const FilterPanel = () => {
   const { filtros, setFiltros, aplicarFiltros, coloresDisponibles, marcasDisponibles, rangosDePrecio } = productStore();
   const { categoriasFiltradas, fetchCategorias, filtrarCategoriasPorTipo } = categoryStore();
   const { tipos, fetchTipos } = typeStore();
+  
+  const [isOpen, setIsOpen] = useState(false);
 
-  // Cargar categorías y tipos al montar el componente
   useEffect(() => {
     fetchCategorias();
     fetchTipos();
@@ -20,80 +21,67 @@ const FilterPanel = () => {
     setFiltros({ [name]: value });
 
     if (name === "tipo") {
-      filtrarCategoriasPorTipo(Number(value)); // Actualiza las categorías según el tipo seleccionado
+      filtrarCategoriasPorTipo(Number(value));
     }
   };
 
-  return (
-    <div className={styles.filterPanel}>
+return (
+  <div>
+    {/* Botón móvil para abrir el panel */}
+    <button className={styles.toggleButton} onClick={() => setIsOpen(!isOpen)}>
+      Filtros
+    </button>
+
+    <div className={`${styles.filterPanel} ${isOpen ? styles.open : ""}`}>
       {/* Select de Tipo */}
-      <label className={styles.label}>Tipo:</label>
-      <select className={styles.select} name="tipo" value={filtros.tipo || ""} onChange={handleChange}>
+      <label>Tipo:</label>
+      <select name="tipo" value={filtros.tipo || ""} onChange={handleChange}>
         <option value="">Todos</option>
         {tipos.map((tipo) => (
-          <option key={tipo.id} value={tipo.id}>
-            {tipo.nombre}
-          </option>
+          <option key={tipo.id} value={tipo.id}>{tipo.nombre}</option>
         ))}
       </select>
 
-      {/* Select de Categoría (filtrado dinámicamente según Tipo) */}
-      <label className={styles.label}>Categoría:</label>
-      <select className={styles.select} name="categoria" value={filtros.categoria || ""} onChange={handleChange}>
+      {/* Categoría */}
+      <label>Categoría:</label>
+      <select name="categoria" value={filtros.categoria || ""} onChange={handleChange}>
         <option value="">Todas</option>
         {categoriasFiltradas.map((categoria) => (
-          <option key={categoria.id} value={categoria.id}>
-            {categoria.nombre}
-          </option>
+          <option key={categoria.id} value={categoria.id}>{categoria.nombre}</option>
         ))}
       </select>
 
-      {/* Select dinámico de Color */}
-      <label className={styles.label}>Color:</label>
-      <select className={styles.select} name="color" value={filtros.color || ""} onChange={handleChange}>
+      {/* Color */}
+      <label>Color:</label>
+      <select name="color" value={filtros.color || ""} onChange={handleChange}>
         <option value="">Todos</option>
         {coloresDisponibles.map((color) => (
-          <option key={color} value={color}>
-            {color}
-          </option>
+          <option key={color} value={color}>{color}</option>
         ))}
       </select>
 
-      {/* Select dinámico de Marca */}
-      <label className={styles.label}>Marca:</label>
-      <select className={styles.select} name="marca" value={filtros.marca || ""} onChange={handleChange}>
+      {/* Marca */}
+      <label>Marca:</label>
+      <select name="marca" value={filtros.marca || ""} onChange={handleChange}>
         <option value="">Todas</option>
         {marcasDisponibles.map((marca) => (
-          <option key={marca} value={marca}>
-            {marca}
-          </option>
+          <option key={marca} value={marca}>{marca}</option>
         ))}
       </select>
 
-      {/* Inputs dinámicos para Precio */}
-      <label className={styles.label}>Precio Mínimo:</label>
-      <input
-        className={styles.input}
-        type="number"
-        name="precioMin"
-        value={filtros.precioMin || rangosDePrecio.min}
-        onChange={handleChange}
-      />
+      {/* Contenedor de precios */}
+      <div className={styles.priceFilter}>
+        <label>Precio Mín:</label>
+        <input type="number" name="precioMin" value={filtros.precioMin || rangosDePrecio.min} onChange={handleChange} />
 
-      <label className={styles.label}>Precio Máximo:</label>
-      <input
-        className={styles.input}
-        type="number"
-        name="precioMax"
-        value={filtros.precioMax || rangosDePrecio.max}
-        onChange={handleChange}
-      />
+        <label>Precio Máx:</label>
+        <input type="number" name="precioMax" value={filtros.precioMax || rangosDePrecio.max} onChange={handleChange} />
+      </div>
 
-      <button className={styles.button} onClick={aplicarFiltros}>
-        Aplicar Filtros
-      </button>
+     
     </div>
-  );
+  </div>
+);
 };
 
 export default FilterPanel;

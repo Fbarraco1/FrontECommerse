@@ -11,9 +11,9 @@
 }
 
 .thumbnail {
-  width: 70px;
-  height: 90px;
-  object-fit: cover;
+  width: 100px;
+  height: 100px;
+  object-fit:contain;
   border-radius: 6px;
   cursor: pointer;
   border: 2px solid transparent;

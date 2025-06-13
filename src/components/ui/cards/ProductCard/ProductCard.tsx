@@ -12,14 +12,14 @@ export const ProductCard = ({ producto }: ProductCardProps) => {
 
   return (
     <div className={styles.card}>
-      <img
-        src={imagenSrc}
-        alt={producto.nombre}
-        className={styles.image}
-      />
+      <div className={styles.imageContainer}>
+        <img src={imagenSrc} alt={producto.nombre} className={styles.image} />
+      </div>
 
-      <h3 className={styles.name}>{producto.nombre}</h3>
-      <p className={styles.price}>${producto.precio}</p>
+      <div className={styles.info}>
+        <h3 className={styles.name}>{producto.nombre}</h3>
+        <p className={styles.price}>${producto.precio}</p>
+      </div>
     </div>
   );
 };
