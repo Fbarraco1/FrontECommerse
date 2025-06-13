@@ -24,7 +24,10 @@ const [tallesDisponibles, setTallesDisponibles] = useState<ITalle[]>([]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const abrirModal = () => setIsModalOpen(true);
-  const cerrarModal = () => setIsModalOpen(false);
+  const cerrarModal = async  () => {
+    setIsModalOpen(false);
+    await fetchCategorias(); 
+  }
 
 
   useEffect(() => {

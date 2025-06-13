@@ -1,4 +1,5 @@
 import { IProduct } from "./IProduct";
+import { ITalle } from "./ITalle";
 import { IType } from "./IType";
 
 export interface ICategory {
@@ -6,4 +7,5 @@ export interface ICategory {
   nombre: string;
   tipo?: IType;
   productos: IProduct[];
+  talles: ITalle[];
 }

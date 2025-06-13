@@ -1,9 +1,8 @@
 import { IProduct } from "./IProduct";
 
-// types/ITalle.ts
 export interface ITalle {
   id: number;
   nombre: string;
   stock: number;
-  producto: IProduct[]
+  producto: IProduct
 }

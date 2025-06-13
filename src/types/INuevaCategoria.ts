@@ -1,5 +1,8 @@
 
 export interface INuevaCategoria {
   nombre: string;
-  tipoId: number;
+  tipo: {
+    id: number;
+    nombre: string;
+  };
 }

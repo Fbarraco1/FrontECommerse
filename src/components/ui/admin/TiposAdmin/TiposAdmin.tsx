@@ -20,8 +20,10 @@ export const TiposAdmin = () => {
     // Estado para el modal de categoría
     const [isModalCategoriaOpen, setIsModalCategoriaOpen] = useState(false);
     const abrirModalCategoria = () => setIsModalCategoriaOpen(true);
-    const cerrarModalCategoria = () => setIsModalCategoriaOpen(false);
-
+    const cerrarModalCategoria = async () => {
+    setIsModalCategoriaOpen(false);
+    await fetchCategorias(); // Recarga las categorías después de cerrar el modal
+    };
     useEffect(() => {
         fetchTipos();
         fetchCategorias();  

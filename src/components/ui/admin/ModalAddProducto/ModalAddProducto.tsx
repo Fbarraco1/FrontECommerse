@@ -13,11 +13,11 @@ export const ModalAddProducto = ({ onClose }: ModalAddProductoProps) => {
   const [nombre, setNombre] = useState("");
   const [categoria, setCategoria] = useState("");
   const [precio, setPrecio] = useState("");
-  const [cantidad, setCantidad] = useState("");
   const [marca, setMarca] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [color, setColor] = useState("");
   const [imagenes] = useState([]);
+  const [talles] = useState([])
 
   const categorias = categoryStore((state) => state.categorias);
 
@@ -41,11 +41,11 @@ export const ModalAddProducto = ({ onClose }: ModalAddProductoProps) => {
       nombre,
       categoria: categoriaSeleccionada,
       precio: Number(precio),
-      cantidad: Number(cantidad),
       marca,
       descripcion,
       color,
-      imagenes
+      imagenes,
+      talles
     };
 
     try {
@@ -110,21 +110,6 @@ export const ModalAddProducto = ({ onClose }: ModalAddProductoProps) => {
                         onChange={(e) => setPrecio(e.target.value)}
                         required 
                     />
-                </div>
-                
-                <div>
-                    <label htmlFor="stock">Cantidad de Stock</label>
-                    <div className={styles.stockContainer}>
-                        <input 
-                            type="number" 
-                            id="stock" 
-                            name="stock" 
-                            className={styles.stockInput}
-                            value={cantidad}
-                            onChange={(e) => setCantidad(e.target.value)}
-                            required 
-                        />
-                    </div>
                 </div>
                 
                 <div>

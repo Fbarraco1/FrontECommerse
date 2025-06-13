@@ -21,9 +21,15 @@ export const ModalAddCategoria = ({ onClose }: ModalAddCategoriaProps) => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!nombre.trim() || !tipoSeleccionado) return;
-    await crearCategoria({ nombre, tipoId: Number(tipoSeleccionado) }); // <-- enviar tipoId
-    onClose();
+    try {
+      if (!nombre.trim() || !tipoSeleccionado) return;
+      await crearCategoria({ nombre, tipo: {id: Number(tipoSeleccionado) ,nombre:(tipoSeleccionado)}}); // <-- enviar tipoId
+      onClose();
+    } catch (error) {
+      console.error("Error al crear la categoría:", error);
+      alert("Error al crear la categoría. Por favor, inténtelo de nuevo.");
+    }
+
   };
 
   return (
