@@ -1,54 +1,92 @@
-# React + TypeScript + Vite
+# FrontECommerse
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend de una aplicación de e-commerce desarrollada como trabajo práctico universitario. Permite explorar un catálogo de productos, gestionar un carrito de compras y simular el flujo de compra de una tienda online.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧩 Stack Tecnológico
 
-## Expanding the ESLint configuration
+- **React** — Librería para la construcción de interfaces de usuario.
+- **TypeScript** — Tipado estático sobre JavaScript.
+- **Vite** — Entorno de desarrollo y build.
+- **Tailwind CSS** — Framework de estilos utility-first.
+- **ESLint** — Linter para mantener la calidad y consistencia del código.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## ✨ Funcionalidades
+
+- 🛍️ Catálogo de productos.
+- 🛒 Carrito de compras.
+- 📱 Diseño responsive con Tailwind CSS.
+
+---
+
+## ⚙️ Requisitos previos
+
+- [Node.js](https://nodejs.org/) (versión 18 o superior recomendada)
+- [npm](https://www.npmjs.com/) (incluido con Node.js)
+
+---
+
+## 🚀 Instalación y ejecución en desarrollo
+
+1. **Clonar el repositorio**
+
+   ```bash
+   git clone https://github.com/Fbarraco1/FrontECommerse.git
+   cd FrontECommerse
+   ```
+
+2. **Instalar las dependencias**
+
+   ```bash
+   npm install
+   ```
+
+3. **Ejecutar el servidor de desarrollo**
+
+   ```bash
+   npm run dev
+   ```
+
+4. **Abrir la aplicación**
+
+   Acceder desde el navegador a la URL que indique la consola (por defecto suele ser `http://localhost:5173`).
+
+---
+
+## 📦 Build para producción
+
+```bash
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Los archivos generados se guardan en la carpeta `dist/`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Para previsualizar el build localmente:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm run preview
 ```
+
+---
+
+## 📁 Estructura del proyecto (resumen)
+
+```
+FrontECommerse/
+├── public/            # Archivos estáticos
+├── src/                # Código fuente de la aplicación
+├── index.html          # Punto de entrada HTML
+├── tailwind.config.js   # Configuración de Tailwind CSS
+├── vite.config.ts       # Configuración de Vite
+├── tsconfig.json        # Configuración de TypeScript
+└── package.json
+```
+
+---
+
+## 🎓 Contexto
+
+Proyecto desarrollado con fines académicos, como práctica de desarrollo frontend con React, TypeScript y Tailwind CSS.
